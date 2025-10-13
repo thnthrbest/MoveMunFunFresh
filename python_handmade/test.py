@@ -18,7 +18,7 @@ save_crop = False  # Set to True only when you want to save
 frame_id = 0  # Increment this after each save
 model_animal ="best.pt"
 # YOLO PoseDetection Model Path
-model_path = f"D:/GitHub/hand_made/python_handmade/model/{model_animal}"
+model_path = f"D:/GitHub/hand_made/python_handmade/model/{model_animal}"# Edit path
 
 # Load models and labels
 try:

@@ -67,7 +67,7 @@ def ReciveValue():
         if data == "True":
             random_animal = random.choice(animal)
             print(random_animal)
-            model_path = f"D:/GitHub/hand_made/python_handmade/model/{random_animal}.pt"
+            model_path = f"D:/GitHub/hand_made/python_handmade/model/{random_animal}.pt" # Edit path
             try:
                 model_shadow = YOLO(model_path)
             except Exception as e:

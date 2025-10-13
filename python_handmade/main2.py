@@ -204,7 +204,7 @@ while True:
             
             if checkc:
                 random_animal = random.choice(animal)
-                model_path = f"D:/GitHub/hand_made/python_handmade/model/{random_animal}.pt"
+                model_path = f"D:/GitHub/hand_made/python_handmade/model/{random_animal}.pt"# Edit path
                 # Load models and labels
                 try:
                     model_shadow = YOLO(model_path)

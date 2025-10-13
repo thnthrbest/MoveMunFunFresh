@@ -98,21 +98,10 @@ InitTestScene*.unity*
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
-/Library/
-/Temp/
-/Obj/
-/Build/
-/Builds/
-/Logs/
-/UserSettings/
-/MemoryCaptures/
-.vs/
-.idea/
-*.csproj
-*.unityproj
-*.sln
-*.user
-*.pidb
-*.booproj
-*.svd
-*.pdb
+/unity_mmff/[Ll]ibrary/
+/unity_mmff/[Tt]emp/
+/unity_mmff/[Oo]bj/
+/unity_mmff/[Bb]uild/
+/unity_mmff/[Bb]uilds/
+/unity_mmff/[Ll]ogs/
+/unity_mmff/[Uu]ser[Ss]ettings/

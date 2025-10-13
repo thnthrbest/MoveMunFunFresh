@@ -43,7 +43,7 @@ public class register : MonoBehaviour
 
     public IEnumerator UpdateData()
     {
-        string url = "http://localhost//mmff/register.php";
+        string url = "http://localhost/mmff_php/register.php";
         WWWForm form = new WWWForm();
         form.AddField("id", ID_text);
         form.AddField("classroom", Classroom_text);

@@ -16,7 +16,7 @@ public class ChildGridManager : MonoBehaviour
 {
     [Header("PHP Settings")]
     [Tooltip("URL ของไฟล์ PHP (เช่น http://localhost/choose.php)")]
-    public string phpUrl = "http://localhost/mmff/choose.php";
+    public string phpUrl = "http://localhost/mmff_php/choose.php";
     
     [Tooltip("User ID ที่จะดึงข้อมูล")]
     public string userId = "1";

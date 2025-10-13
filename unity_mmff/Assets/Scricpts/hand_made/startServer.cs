@@ -10,6 +10,8 @@ public class startServer : MonoBehaviour
     [SerializeField] private string ScriptName = "";
     [SerializeField] private int delayForStartServer;
     [SerializeField] private Dec dec;
+    [SerializeField] private CountdownTimer CountdownTimer;
+    [SerializeField] private sendstate sendstate;
 
 
     IEnumerator StartServer()
@@ -20,6 +22,10 @@ public class startServer : MonoBehaviour
         if (dec != null)
         {
             dec.enabled = true;
+            CountdownTimer.enabled = true;
+            yield return new WaitForSeconds(3);
+            sendstate.send();
+            //UnityEngine.Debug.Log("send");
         }
     }
     public void ServerStart()

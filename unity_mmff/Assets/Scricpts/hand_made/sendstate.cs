@@ -20,6 +20,10 @@ public class sendstate : MonoBehaviour
             manange.play = isDetec;
         }
     }
+    public void send(){
+        uDPSender.Sender(isDetec.ToString());
+        manange.play = isDetec;
+    }
 
 
 

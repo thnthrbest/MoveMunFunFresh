@@ -24,7 +24,6 @@ public class Dec : MonoBehaviour
     void Start()
     {
 
-
         try
         {
             // Start the webcam

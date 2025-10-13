@@ -10,23 +10,28 @@ using System.IO;
 
 public class manange : MonoBehaviour
 {
+    
     public UDPSender uDPSender;
     public TextMeshProUGUI rdanimal_text;
     public TextMeshProUGUI same;
+    public TextMeshProUGUI score;
     public UDPReceive uDPReceive;
     public bool play = false;
     Color color;
     string[] a;
+    int temp=0;
 
     public RawImage animal_pic;   // Drag RawImage จาก Inspector มาใส่
     public string imagePath = "D:/Images/myPic.jpg"; // ตำแหน่งไฟล์
+
+    public CountdownTimer CountdownTimer;
 
     void Start()
     {
     }
     public void change_img()
     {
-        imagePath = "D:/GitHub/hand_made/unity_handmade/Assets/img/" + a[0] + ".png";
+        imagePath = "D:/GitHub/MoveMunFunFresh/unity_mmff/Assets/img_handmade/" + a[0] + ".png";
 
         // โหลด byte[] จากไฟล์
         byte[] fileData = File.ReadAllBytes(imagePath);
@@ -42,7 +47,8 @@ public class manange : MonoBehaviour
         play = false;
 
         if(!play){animal_pic.gameObject.SetActive(true);
-        Debug.Log("ควยเปิด");}
+        //Debug.Log("ควยเปิด");
+    }
 
         
     }
@@ -51,7 +57,7 @@ public class manange : MonoBehaviour
         if (uDPReceive != null)
         {
             animal_pic.gameObject.SetActive(false);
-            Debug.Log("ควย+ปิด");
+            //Debug.Log("ควย+ปิด");
             a = (uDPReceive.data).Split(' ');
             rdanimal_text.text = a[0];
             Debug.Log(a[0]);
@@ -59,8 +65,11 @@ public class manange : MonoBehaviour
             {
                 if (ColorUtility.TryParseHtmlString("#00FF00", out color)) same.color = color;
                 same.text = ((float.Parse(a[1])) * 100) + " %";
-                Invoke("change_img", 5f);
+                temp++;
+                score.text = temp.ToString();
                 play = false;
+                Invoke("change_img", 5f);
+                
             }
             if (((float.Parse(a[1])) * 100) < 70)
             {

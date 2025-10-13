@@ -194,7 +194,7 @@ while True:
             try:
                 hand_crop = output
                 if hand_crop.size > 0:
-                    img_path = f"data/check/hand{classI}_{frame_id}.jpg"
+                    img_path = f"data/check/hand{classI}_{frame_id}.jpg"# Edit path
                     cv2.imwrite(img_path, output)
 
                     # Calculate YOLOv8 label (normalized)
@@ -204,7 +204,7 @@ while True:
                     width = (MaXx - MiNx) / img_w
                     height = (MaXy - MiNy) / img_h
 
-                    label_path = f"data/labels/hand{classI}_{frame_id}.txt"
+                    label_path = f"data/labels/hand{classI}_{frame_id}.txt"# Edit path
                     with open(label_path, "w") as f:
                         f.write(f"{classI} {x_center:.6f} {y_center:.6f} {width:.6f} {height:.6f}\n")
                         # f.write(f"1 1 1 1 1\n")

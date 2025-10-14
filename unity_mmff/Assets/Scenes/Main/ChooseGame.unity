@@ -1025,13 +1025,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60eb54bc81cb7394d83c02dde8485c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  Gamename: {fileID: 0}
+  Gamename: {fileID: 310185598}
   Names:
-  - GameName: 1
-  - GameName: 2
-  - GameName: 3
-  - GameName: 4
-  - GameName: 5
+  - GameName: best
+  - GameName: jame
+  - GameName: un
+  - GameName: yoi
+  - GameName: leo
   GameImage: {fileID: 2007603984}
   GameImages:
   - GameListSprite: {fileID: 21300000, guid: 9ab55b9715b9cd641816849a659a3ee3, type: 3}

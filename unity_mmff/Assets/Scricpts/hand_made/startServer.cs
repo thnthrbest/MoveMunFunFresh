@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+using TMPro;
 
 public class startServer : MonoBehaviour
 {
@@ -12,7 +13,10 @@ public class startServer : MonoBehaviour
     [SerializeField] private Dec dec;
     [SerializeField] private CountdownTimer CountdownTimer;
     [SerializeField] private sendstate sendstate;
-
+    [SerializeField] private manange manange;
+    [SerializeField] private UDPReceive UDPReceive;
+    [SerializeField] private TextMeshProUGUI score;
+    int temp=0;
 
     IEnumerator StartServer()
     {
@@ -24,8 +28,19 @@ public class startServer : MonoBehaviour
             dec.enabled = true;
             CountdownTimer.enabled = true;
             yield return new WaitForSeconds(3);
-            sendstate.send();
+            StartCoroutine(re());
             //UnityEngine.Debug.Log("send");
+        }
+    }
+    IEnumerator re()
+    {
+        while(true){
+
+            sendstate.send();
+            yield return new WaitForSeconds(10f);
+            StartCoroutine(manange.change_img(UDPReceive.a[0]));
+            temp++;
+            score.text = temp.ToString();
         }
     }
     public void ServerStart()

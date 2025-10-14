@@ -17,12 +17,11 @@ public class sendstate : MonoBehaviour
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             uDPSender.Sender(isDetec.ToString());
-            manange.play = isDetec;
         }
     }
     public void send(){
         uDPSender.Sender(isDetec.ToString());
-        manange.play = isDetec;
+        //StartCoroutine(manange.start_shadow());
     }
 
 

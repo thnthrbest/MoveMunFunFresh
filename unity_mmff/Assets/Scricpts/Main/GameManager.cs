@@ -10,7 +10,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    private int game_id;
     public TextMeshProUGUI Gamename;
     [System.Serializable]
     public class GameNameList
@@ -30,11 +29,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Game List")]
     public List<GameList> GameImages = new List<GameList>();
-    private int Currentindex = 0;
-    
+    public int Currentindex = 0;
+    public int game_id;
     void Start()
     {
-        if(GameImages.Count > 0)
+        if (GameImages.Count > 0)
         {
             UpdateGameImage();
         }
@@ -50,31 +49,31 @@ public class GameManager : MonoBehaviour
         }
         UpdateGameImage();
         UpdateText();
-        GameID(Currentindex);
+        ReturnId();
     }
 
     public void PreviousSelectGame()
     {
         if (GameImages.Count == 0 || Names.Count == 0) return;
         Currentindex--;
-        if(Currentindex <= 0)
+        if (Currentindex < 0)
         {
-            Currentindex = GameImages.Count - 1 ;
+            Currentindex = GameImages.Count - 1;
         }
         UpdateGameImage();
         UpdateText();
-        GameID(Currentindex);
+        ReturnId();
     }
 
-    public void GameID()
+    public void SetGameId()
     {
         game_id = Currentindex + 1;
     }
-
-    public int GetGameID()
+    public int ReturnId()
     {
         return game_id;
     }
+
     private void UpdateGameImage()
     {
         GameImage.sprite = GameImages[Currentindex].GameListSprite;

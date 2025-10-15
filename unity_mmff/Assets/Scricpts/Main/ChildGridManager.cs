@@ -7,11 +7,12 @@ using UnityEngine.Networking;
 using TMPro;
 
 [System.Serializable]
-public class ChildData
-{
-    public string child_id;
-    public string child_nickname;
-}
+// public class ChildData
+// {
+//     public string child_id;
+//     public string child_nickname;
+// }
+
 public class ChildGridManager : MonoBehaviour
 {
     [Header("PHP Settings")]

@@ -855,16 +855,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987308840}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33a558fa73932e4478a8735ee87277c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::manange
-  uDPSender: {fileID: 987308844}
-  rdanimal_text: {fileID: 1151127158}
-  same: {fileID: 1520191182}
-  uDPReceive: {fileID: 987308843}
-  play: 0
   animal_pic: {fileID: 393297383}
   imagePath: D:/Images/myPic.jpg
   CountdownTimer: {fileID: 987308848}
@@ -901,6 +896,7 @@ MonoBehaviour:
   data: 
   rdanimal_text: {fileID: 1151127158}
   same: {fileID: 1520191182}
+  a: []
 --- !u!114 &987308844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +930,9 @@ MonoBehaviour:
   dec: {fileID: 987308846}
   CountdownTimer: {fileID: 987308848}
   sendstate: {fileID: 987308842}
+  manange: {fileID: 987308841}
+  UDPReceive: {fileID: 987308843}
+  score: {fileID: 747154267}
 --- !u!114 &987308846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -981,7 +980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46cba95b26b6a74d87863f2c517e496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CountdownTimer
-  timeRemaining: 500
+  timeRemaining: 70
   timerText: {fileID: 1218775877}
   isRunning: 0
   sendstate: {fileID: 987308842}

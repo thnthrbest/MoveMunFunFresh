@@ -37,8 +37,9 @@ public class startServer : MonoBehaviour
         while(true){
 
             sendstate.send();
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(1f);
             StartCoroutine(manange.change_img(UDPReceive.a[0]));
+            yield return new WaitForSeconds(10f);
             temp++;
             score.text = temp.ToString();
         }

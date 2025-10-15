@@ -8,10 +8,7 @@ public class CountdownTimer : MonoBehaviour
     public float timeRemaining = 60f;   // ตั้งเวลาเริ่มต้น 60 วิ
     public TextMeshProUGUI timerText;              // ถ้ามี Text UI ให้ผูกใน Inspector
     public bool isRunning = false;
-    public sendstate sendstate;
-    public manange manange;
     private int lastSentSecond = -1;
-    public TextMeshProUGUI score;
     int temp=0;
 
     void Start()
@@ -25,9 +22,6 @@ public class CountdownTimer : MonoBehaviour
 
         if (currentSecond % 10 == 0 && currentSecond != lastSentSecond && currentSecond != 60)
         {
-            // sendstate.send();
-            // temp++;
-            // score.text = temp.ToString();
             lastSentSecond = currentSecond;
         }
     

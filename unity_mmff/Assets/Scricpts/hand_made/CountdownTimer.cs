@@ -12,7 +12,12 @@ public class CountdownTimer : MonoBehaviour
     public manange manange;
     private int lastSentSecond = -1;
     public TextMeshProUGUI score;
+    public GameObject loading;
+    
     int temp=0;
+
+
+    
 
     void Start()
     {
@@ -35,8 +40,9 @@ public class CountdownTimer : MonoBehaviour
 
     IEnumerator StartCountdown()
     {
-        yield return new WaitForSeconds(3f);
-        while (timeRemaining > 0)
+        yield return new WaitForSeconds(5f);
+        loading.SetActive(false);
+        while (timeRemaining >= 0)
         {
             
             timeRemaining -= Time.deltaTime;
@@ -48,7 +54,7 @@ public class CountdownTimer : MonoBehaviour
 
             yield return null;
         }
-
+        timerText.text = "0";
         isRunning = false;
         Debug.Log("Time's up!");
     }

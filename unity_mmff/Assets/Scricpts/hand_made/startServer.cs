@@ -13,9 +13,9 @@ public class startServer : MonoBehaviour
     [SerializeField] private Dec dec;
     [SerializeField] private CountdownTimer CountdownTimer;
     [SerializeField] private sendstate sendstate;
-    [SerializeField] private manange manange;
     [SerializeField] private UDPReceive UDPReceive;
     [SerializeField] private TextMeshProUGUI score;
+    [SerializeField] private manange manange;
     int temp=0;
 
     IEnumerator StartServer()
@@ -35,10 +35,12 @@ public class startServer : MonoBehaviour
     IEnumerator re()
     {
         while(true){
-
+            int value = Random.Range(4,10); 
             sendstate.send();
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(1f);
             StartCoroutine(manange.change_img(UDPReceive.a[0]));
+            UnityEngine.Debug.Log(value+" : re");
+            yield return new WaitForSeconds(value);
             temp++;
             score.text = temp.ToString();
         }

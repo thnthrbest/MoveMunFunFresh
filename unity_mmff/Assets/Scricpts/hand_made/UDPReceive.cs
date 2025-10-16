@@ -15,7 +15,6 @@ public class UDPReceive : MonoBehaviour
     public bool startRecieving = true;
     public bool printToConsole = false;
     public string data;
-    public TextMeshProUGUI rdanimal_text;
     public TextMeshProUGUI same;
     Color color;
     public string[] a;
@@ -55,7 +54,6 @@ public class UDPReceive : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             if (!string.IsNullOrEmpty(data)){
                 a = (data).Split(' ');
-                rdanimal_text.text = a[0];
                 if (((float.Parse(a[1])) * 100) >= 70){
                     if (ColorUtility.TryParseHtmlString("#00FF00", out color)) same.color = color;
                 }

@@ -234,7 +234,7 @@ while True:
                     
 
     # Send Process Image To Unity 
-    _, img_encoded = cv2.imencode('.jpg', output)
+    _, img_encoded = cv2.imencode('.jpg', original)
     processed_data = img_encoded.tobytes()
 
     # Send the length of the processed frame and the frame itself

@@ -38,6 +38,7 @@ BG_COLOR = (0, 0, 0)  # Adjust for Background Color, this use BGR format, Defaul
 
 animal = ["rabbit","elephent","snail","dog","deer","cow","crab","bird"]
 random_animal = ""
+random_animal_bf = None
 
 #<---- Setting ---->
 
@@ -52,7 +53,7 @@ serverAddressPort = ("127.0.0.1", 5052) # Send result ai
 #<---- function : Thread---->
 
 def ReciveValue():
-    global detect, thres,model_shadow
+    global detect, thres,model_shadow , random_animal_bf 
     sock_unity_revice = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock_unity_revice.bind(("127.0.0.1", 5051)) # Recive Value form unity (start anything)
     print(f"Listening on Unity :ReciveValue")
@@ -66,6 +67,10 @@ def ReciveValue():
         print("Received message:", data)
         if data == "True":
             random_animal = random.choice(animal)
+            while random_animal == random_animal_bf:
+                random_animal = random.choice(animal)
+                
+            random_animal_bf = random_animal
             print(random_animal)
             model_path = f"D:/GitHub/MoveMunFunFresh/python_handmade/model/{random_animal}.pt" # Edit path
             try:

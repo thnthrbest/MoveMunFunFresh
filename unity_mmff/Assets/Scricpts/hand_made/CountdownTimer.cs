@@ -11,25 +11,21 @@ public class CountdownTimer : MonoBehaviour
     private int lastSentSecond = -1;
     int temp=0;
 
-    void Start()
-    {
-        StartCoroutine(StartCountdown());
-    }
 
-    void Update(){
-        timeRemaining -= Time.deltaTime;
-        int currentSecond = Mathf.FloorToInt(timeRemaining);
+    // void Update(){
+    //     timeRemaining -= Time.deltaTime;
+    //     int currentSecond = Mathf.FloorToInt(timeRemaining);
 
-        if (currentSecond % 10 == 0 && currentSecond != lastSentSecond && currentSecond != 60)
-        {
-            lastSentSecond = currentSecond;
-        }
+    //     if (currentSecond % 10 == 0 && currentSecond != lastSentSecond && currentSecond != 60)
+    //     {
+    //         lastSentSecond = currentSecond;
+    //     }
     
-    }
+    // }
 
-    IEnumerator StartCountdown()
+    public IEnumerator StartCountdown()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         while (timeRemaining > 0)
         {
             

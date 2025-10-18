@@ -10,7 +10,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI Gamename;
+    public TextMeshProUGUI Gamename, TextDescription;
     [System.Serializable]
     public class GameNameList
     {
@@ -30,12 +30,15 @@ public class GameManager : MonoBehaviour
     [Header("Game List")]
     public List<GameList> GameImages = new List<GameList>();
     public int Currentindex = 0;
-    public int game_id;
+    public int game_id = 1;
     void Start()
     {
+        game_id = Currentindex + 1;
         if (GameImages.Count > 0)
         {
             UpdateGameImage();
+            UpdateText();
+            StartCoroutine(SendGameId(game_id));
         }
     }
 
@@ -43,35 +46,30 @@ public class GameManager : MonoBehaviour
     {
         if (GameImages.Count == 0 || Names.Count == 0) return;
         Currentindex++;
-        if(Currentindex >= GameImages.Count)
+        game_id = Currentindex + 1;
+        if (Currentindex == 4)
         {
             Currentindex = 0;
+            game_id = 1;
         }
         UpdateGameImage();
         UpdateText();
-        ReturnId();
+        StartCoroutine(SendGameId(game_id));
     }
 
     public void PreviousSelectGame()
     {
         if (GameImages.Count == 0 || Names.Count == 0) return;
         Currentindex--;
-        if (Currentindex < 0)
+        game_id = Currentindex + 1;
+        if (Currentindex == -1)
         {
             Currentindex = GameImages.Count - 1;
+            game_id = 4;
         }
         UpdateGameImage();
         UpdateText();
-        ReturnId();
-    }
-
-    public void SetGameId()
-    {
-        game_id = Currentindex + 1;
-    }
-    public int ReturnId()
-    {
-        return game_id;
+        StartCoroutine(SendGameId(game_id));
     }
 
     private void UpdateGameImage()
@@ -84,4 +82,25 @@ public class GameManager : MonoBehaviour
         Gamename.text = Names[Currentindex].GameName;
     }
 
+    public IEnumerator SendGameId(int game_id)
+    {
+        string url = "http://localhost/mmff/GetDescription.php";
+        WWWForm form = new WWWForm();
+        form.AddField("game_id", game_id);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogWarning("Error");
+            }
+            else
+            {
+                Debug.Log("Reponse: " + www.downloadHandler.text);
+                TextDescription.text = www.downloadHandler.text;
+            }
+        }
+    }
 }

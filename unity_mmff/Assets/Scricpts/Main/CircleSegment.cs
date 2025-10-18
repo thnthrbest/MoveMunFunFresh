@@ -52,6 +52,7 @@ public class CircleSegment : MonoBehaviour
             SegmentImage.raycastTarget = true;
 
             RectTransform rectTransform = SegmentObj.GetComponent<RectTransform>();
+            rectTransform.pivot = new Vector2(0f, 1f); 
             rectTransform.sizeDelta = new Vector2(radius * 2, radius * 2);
             rectTransform.anchoredPosition = Vector2.zero;
 

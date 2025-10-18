@@ -1,11 +1,16 @@
 using UnityEngine;
-
+using UnityEngine.Networking;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using TMPro;
 public class EndGame : MonoBehaviour
 {
+    private int i = 1;
     public TextMeshProUGUI part1, part2, part3, part4, part5;
+    public string child_id, game_id, score;
     public void PHP()
     {
-        if()
+        if(i > 0)
         {
             StartCoroutine(GetPoint());
         }
@@ -14,7 +19,7 @@ public class EndGame : MonoBehaviour
     public IEnumerator GetPoint()
     {
         string url = "http://localhost/mmff/GetDataPlay.php";
-        WWWForm from = new WWWForm();
+        WWWForm form = new WWWForm();
         form.AddField("child_id", child_id);
         form.AddField("game_id", game_id);
         form.AddField("score", score);
@@ -25,7 +30,7 @@ public class EndGame : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.log("Error");
+                Debug.Log("Error");
             }
             else
             {

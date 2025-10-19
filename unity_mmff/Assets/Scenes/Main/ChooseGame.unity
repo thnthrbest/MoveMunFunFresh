@@ -119,53 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &67623528
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 67623530}
-  - component: {fileID: 67623529}
-  m_Layer: 0
-  m_Name: GetDescription
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &67623529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67623528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9b6886de89e55a4793a0cdddbd20fc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GetDescription
-  gameManager: {fileID: 952458631}
-  TextDescription: {fileID: 1547014133}
-  Game_id: 0
---- !u!4 &67623530
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67623528}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1189.4261, y: 613.6253, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &84264504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +958,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 67623529}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GetDescription, Assembly-CSharp
         m_MethodName: Click
         m_Mode: 1
@@ -1085,19 +1038,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   Gamename: {fileID: 310185598}
+  TextDescription: {fileID: 1547014133}
   Names:
   - GameName: best
   - GameName: jame
   - GameName: un
   - GameName: yoi
-  - GameName: leo
   GameImage: {fileID: 2007603984}
   GameImages:
   - GameListSprite: {fileID: 21300000, guid: 9ab55b9715b9cd641816849a659a3ee3, type: 3}
   - GameListSprite: {fileID: 21300000, guid: ae7f064a7d617b8488add0f7efdff2a9, type: 3}
   - GameListSprite: {fileID: 21300000, guid: 59cd00a2de5c7684d82c983329dbc9bf, type: 3}
   - GameListSprite: {fileID: 21300000, guid: 78e30daed951d5e41bfd6a75e7528599, type: 3}
-  - GameListSprite: {fileID: 21300000, guid: efa5dbe18acf6be4bb85720807eed93a, type: 3}
   Currentindex: 0
   game_id: 0
 --- !u!4 &952458632
@@ -1346,7 +1298,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 67623529}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GetDescription, Assembly-CSharp
         m_MethodName: Click
         m_Mode: 1
@@ -1823,4 +1775,3 @@ SceneRoots:
   - {fileID: 498629898}
   - {fileID: 361479973}
   - {fileID: 952458632}
-  - {fileID: 67623530}

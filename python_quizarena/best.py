@@ -23,7 +23,9 @@ tracker = DeepSort(
 
 #<---- Setting Socket---->
 
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sockImg = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+serverAddressPort = ("127.0.0.1", 5052) # Send y
 
 #<---- Setting Socket---->
 
@@ -86,7 +88,7 @@ while True:
 
     frame = cv2.flip(frame, 1)
 
-    results = model(frame)
+    results = model(frame, verbose=False)
 
     for r in results:
         boxes = r.boxes.xyxy.cpu().numpy()
@@ -126,6 +128,14 @@ while True:
             # วาดกรอบและแสดง custom_id
             x1, y1, x2, y2 = track.to_ltrb()
             cv2.rectangle(frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
+
+            # จุดตรงกลางของกรอบด้านบน
+            center_top_x = int((x1 + x2) / 2)
+            center_top_y = int(y1+50)
+            cv2.circle(frame, (center_top_x, center_top_y), 5, (0, 0, 255), -1)  # จุดสีแดง
+
+            sock.sendto(str.encode(f"{custom_id}:{center_top_x}"), serverAddressPort)
+
             cv2.putText(frame, f'ID {custom_id}', (int(x1), int(y1)-10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
         

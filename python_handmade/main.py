@@ -269,5 +269,4 @@ client_socket.close()
 sockImg.close()
 cv2.destroyAllWindows()
 
-
 #<---- Clean up ---->   

@@ -19,11 +19,16 @@ public class uDPReceive : MonoBehaviour
     public string[] a;
     public void Start()
     {
+        StartCoroutine(wait());
+    }
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(3f);
         receiveThread = new Thread(new ThreadStart(ReceiveData));
         receiveThread.IsBackground = true;
         receiveThread.Start();
         int sum = int.Parse(uDPSender.num);
-        a = new string[sum+1];
+        a = new string[sum + 1];
     }
     private void ReceiveData()
     {

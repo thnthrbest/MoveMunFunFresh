@@ -23,7 +23,6 @@ public class main : MonoBehaviour
 
     void Start()
     {
-
         try
         {
             // Start the webcam

@@ -4,7 +4,7 @@
 ### วิธีติดตั้ง
 ```
 > pip install virtualenv
-> python -m venv env
+> py -3.10 -m venv env
 > env\Scripts\activate
 > pip install opencv-python ultralytics mediapipe numpy
 ```

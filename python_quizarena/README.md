@@ -5,9 +5,7 @@ Tracking and counting persons
 ```
 > pip install virtualenv
 > py -3.10 -m venv env
-> env\Scripts\activate
-> pip install ultralytics
-> pip install deep-sort-realtime
+> env\Scripts\activat
 > pip install -r requirements.txt
 
 ```

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ObjectSpawner : MonoBehaviour
+public class WallSpawner : MonoBehaviour
 {
     public GameObject[] objectPrefabs;
     public Transform spawnPoint;

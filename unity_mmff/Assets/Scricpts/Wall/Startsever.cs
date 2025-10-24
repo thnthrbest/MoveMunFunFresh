@@ -6,7 +6,7 @@ using System.Diagnostics;
 public class StartServer : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Dec dec;
+    public DecSeen dec;
     public void Start()
     {
 

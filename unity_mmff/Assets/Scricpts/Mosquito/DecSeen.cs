@@ -13,7 +13,7 @@ public class LandmarkList { public List<LandmarkData> landmarks; }
 
 
 // --- (คลาสหลัก Dec) ---
-public class Dec : MonoBehaviour
+public class DecSeen : MonoBehaviour
 {
     [Header("Network Settings")]
     public string serverAddress = "127.0.0.1";

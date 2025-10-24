@@ -1,4 +1,4 @@
-<?
+<?php
     require 'connect.php';
     $child_id = $_POST['child_id'];
 

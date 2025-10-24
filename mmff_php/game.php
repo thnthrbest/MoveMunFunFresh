@@ -1,4 +1,4 @@
-<?
+<?php
     require 'connect.php';
     $game_id = $_POST['game_id'];
 

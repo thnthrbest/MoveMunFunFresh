@@ -1,5 +1,5 @@
 Set WshShell = CreateObject("WScript.Shell")
-WshShell.Run """D:\GitHub\MoveMunFunFresh\python_handmade\sever\start_main.bat""", 7, False ' Edit path 
+WshShell.Run """D:\MoveMunFunFresh\python_handmade\sever\start_main.bat""", 7, False ' Edit path 
 ' Docs https://www.vbsedit.com/html/6f28899c-d653-4555-8a59-49640b0e32ea.asp
 ' intWindowStyle	Description
 

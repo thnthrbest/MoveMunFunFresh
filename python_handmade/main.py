@@ -46,7 +46,7 @@ random_animal_bf = None
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sockImg = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serverAddressPort = ("127.0.0.1", 5052) # Send result ai
+serverAddressPort = ("127.0.0.1", 5054) # Send result ai
 
 #<---- Setting Socket---->
 
@@ -72,7 +72,7 @@ def ReciveValue():
                 
             random_animal_bf = random_animal
             print(random_animal)
-            model_path = f"D:/GitHub/MoveMunFunFresh/python_handmade/model/{random_animal}.pt" # Edit path
+            model_path = f"D:/MoveMunFunFresh/python_handmade/model/{random_animal}.pt" # Edit path
             try:
                 model_shadow = YOLO(model_path)
             except Exception as e:
@@ -107,7 +107,7 @@ def apply_filters(roi, brightness, contrast, saturation, warmth):
 #<---- start Hand Made ---->
 
 #  Wait For Connection From Unity
-sockImg.bind(("127.0.0.1", 5055))
+sockImg.bind(("127.0.0.1", 5058))
 sockImg.listen(1)
 print("Waiting for connection...")
 client_socket, client_address = sockImg.accept()

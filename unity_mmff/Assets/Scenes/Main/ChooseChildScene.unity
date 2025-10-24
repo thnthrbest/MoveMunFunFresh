@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9504cf2c6caa37e46b1e2c503a4ecc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChildGridManager
-  phpUrl: http://localhost/mmff_php/choose.php
+  phpUrl: http://localhost/mmff/choose.php
   userId: 1
   childCardPrefab: {fileID: 8692892413631066200, guid: b9f5ba5b42ba5f34a922d0af02396956, type: 3}
   gridParent: {fileID: 103946844}

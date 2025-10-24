@@ -40,6 +40,8 @@ public class ChildGridManager : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetString("Scenename1", "ChooseChildScene");
+        PlayerPrefs.SetString("Scenename2","ChildData");
         LoadChildrenData();
     }
 
@@ -156,7 +158,6 @@ public class ChildGridManager : MonoBehaviour
         PlayerPrefs.SetString("selected_child_id", selectedChild.child_id);
         PlayerPrefs.SetString("selected_child_nickname", selectedChild.child_nickname);
         PlayerPrefs.Save();
-        
     }
 
     void ShowError(string message)

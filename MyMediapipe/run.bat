@@ -1,5 +1,5 @@
 @echo off
-call "C:\MyMediapipe\env\Scripts\activate.bat"
+call "D:\MoveMunFunFresh\MyMediapipe\env\Scripts\activate.bat"
 python D:\MoveMunFunFresh\MyMediapipe\MediapipeBodyTracker.py
 echo Close in 2 Seconds
 TIMEOUT /T 2 /NOBREAK

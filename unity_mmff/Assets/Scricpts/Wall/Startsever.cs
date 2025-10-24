@@ -16,7 +16,7 @@ public class StartServer : MonoBehaviour
     }
 
     IEnumerator StartUP(){ //ใช้สำหรับหน่วงเวลา
-        Process.Start("C:/MyMediapipe/run.bat");
+        Process.Start("D:/MoveMunFunFresh/MyMediapipe/run.bat");
         yield return new WaitForSeconds(5);
         dec.enabled = true;
         

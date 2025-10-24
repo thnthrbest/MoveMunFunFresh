@@ -823,7 +823,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 218322593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd3f91611a5e2244f9366dc80e8f3e84, type: 3}
+  m_Script: {fileID: 11500000, guid: aa8f30ed84a09cd43a7a8f5fc7d12352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2009037871}
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 218322593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ab8969a99cd0841b45f6a82813d371, type: 3}
+  m_Script: {fileID: 11500000, guid: a0315a374478d2648a8fa7a75624413f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   heartImages:
@@ -2509,7 +2509,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1604041351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cced9ed111f07914dafeca7fc4edb833, type: 3}
+  m_Script: {fileID: 11500000, guid: 400ea75b67393fc4ba747565bbd9bece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefabs:

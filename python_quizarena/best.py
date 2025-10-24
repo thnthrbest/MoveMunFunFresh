@@ -48,7 +48,7 @@ id_mapping = {}  # แมป DeepSORT track_id -> custom_id ของเรา
 #<---- Receive img ---->
 def procressimg():
     global client_socket
-    sockImg.bind(("127.0.0.1", 5055))
+    sockImg.bind(("127.0.0.1", 5059))
     sockImg.listen(1)
     print("Waiting for connection...")
     client_socket, client_address = sockImg.accept()

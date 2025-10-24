@@ -902,7 +902,7 @@ MonoBehaviour:
   rawImage: {fileID: 1977694045}
   uDPSender: {fileID: 965833479}
   serverAddress: 127.0.0.1
-  serverPort: 5055
+  serverPort: 5059
 --- !u!114 &965833481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Startserver
   CanStart: 1
-  ScriptFolder: D:/GitHub\MoveMunFunFresh/python_quizarena/sever/
+  ScriptFolder: D:/MoveMunFunFresh/python_quizarena/sever/
   ScriptName: start_main_bat
   delayForStartServer: 3
   sendstate: {fileID: 965833482}

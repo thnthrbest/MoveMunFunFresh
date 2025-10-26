@@ -823,10 +823,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 218322593}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: aa8f30ed84a09cd43a7a8f5fc7d12352, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: a0315a374478d2648a8fa7a75624413f, type: 3}
+>>>>>>> Stashed changes
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 2009037871}
+  heartImages:
+  - {fileID: 618072555}
+  - {fileID: 1863447973}
+  - {fileID: 2039238027}
 --- !u!65 &218322598
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -857,13 +864,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 218322593}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: a0315a374478d2648a8fa7a75624413f, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: aa8f30ed84a09cd43a7a8f5fc7d12352, type: 3}
+>>>>>>> Stashed changes
   m_Name: 
   m_EditorClassIdentifier: 
-  heartImages:
-  - {fileID: 618072555}
-  - {fileID: 1863447973}
-  - {fileID: 2039238027}
+  scoreText: {fileID: 2009037871}
 --- !u!1001 &283038004
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class main : MonoBehaviour
             WebCamDevice[] devices = WebCamTexture.devices;
             try
             {
-                webcamTexture = new WebCamTexture(devices[1].name);
+                webcamTexture = new WebCamTexture(devices[0].name);
 
             }
             catch (Exception e)

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CountdownTimer : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class CountdownTimer : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while (timeRemaining > 0)
         {
-            
+
             timeRemaining -= Time.deltaTime;
 
             if (timerText != null)
@@ -37,6 +38,11 @@ public class CountdownTimer : MonoBehaviour
                 Debug.Log(Mathf.CeilToInt(timeRemaining));
 
             yield return null;
+        }
+        if(timeRemaining == 0)
+        {
+            
+            SceneManger.LoadScene("EndGame");
         }
 
         isRunning = false;

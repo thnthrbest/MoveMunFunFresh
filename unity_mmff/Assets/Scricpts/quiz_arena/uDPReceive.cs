@@ -17,6 +17,7 @@ public class uDPReceive : MonoBehaviour
     public bool printToConsole = false;
     public string data;
     public string[] a;
+    public int[] kid;
     public void Start()
     {
         StartCoroutine(wait());
@@ -29,6 +30,7 @@ public class uDPReceive : MonoBehaviour
         receiveThread.Start();
         int sum = int.Parse(uDPSender.num);
         a = new string[sum + 1];
+        kid = new int[sum + 1];
     }
     private void ReceiveData()
     {
@@ -49,6 +51,24 @@ public class uDPReceive : MonoBehaviour
             }
         }
     }
+    public IEnumerator game(bool aws)
+    {
+        yield return new WaitForSeconds(1f);
+        if(data!=null){
+            for (int i = 1; i < a.Length; i++)
+            {
+                if (aws == true && int.Parse(a[i]) < 500)
+                {
+                    kid[i]++;
+                }
+                else if (aws == false && int.Parse(a[i]) >= 500)
+                {
+                    kid[i]++;
+                }
+            }
+        }
+    }
+
 
     private void OnDestroy()
     {

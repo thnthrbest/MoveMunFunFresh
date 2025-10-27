@@ -823,15 +823,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 218322593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: aa8f30ed84a09cd43a7a8f5fc7d12352, type: 3}
-=======
   m_Script: {fileID: 11500000, guid: a0315a374478d2648a8fa7a75624413f, type: 3}
->>>>>>> Stashed changes
-=======
   m_Script: {fileID: 11500000, guid: a0315a374478d2648a8fa7a75624413f, type: 3}
->>>>>>> Stashed changes
+  m_Script: {fileID: 11500000, guid: a0315a374478d2648a8fa7a75624413f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   heartImages:
@@ -868,15 +863,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 218322593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: a0315a374478d2648a8fa7a75624413f, type: 3}
-=======
   m_Script: {fileID: 11500000, guid: aa8f30ed84a09cd43a7a8f5fc7d12352, type: 3}
->>>>>>> Stashed changes
-=======
   m_Script: {fileID: 11500000, guid: aa8f30ed84a09cd43a7a8f5fc7d12352, type: 3}
->>>>>>> Stashed changes
+  m_Script: {fileID: 11500000, guid: aa8f30ed84a09cd43a7a8f5fc7d12352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2009037871}

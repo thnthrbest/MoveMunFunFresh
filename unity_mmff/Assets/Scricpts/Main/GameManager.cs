@@ -11,6 +11,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI Gamename, TextDescription;
+    public string GameDescription;
     [System.Serializable]
     public class GameNameList
     {
@@ -72,7 +73,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SendGameId(game_id));
     }
 
-    private void UpdateGameImage()
+    public void OnSelectedGame()
+    {
+        if (game_id == 1) PlayerPrefs.SetString("game_name", "hand_made");
+        else if (game_id == 2) PlayerPrefs.SetString("game_name", "Wall");
+        else if (game_id == 3) PlayerPrefs.SetString("game_name", "main_qa");
+        else if (game_id == 4) PlayerPrefs.SetString("game_name", "Mosquito");
+        SceneManager.LoadScene("ChooseChildScene");
+    }
+
+    private void UpdateGameImage()  
     {
         GameImage.sprite = GameImages[Currentindex].GameListSprite;
     }
@@ -99,7 +109,10 @@ public class GameManager : MonoBehaviour
             else
             {
                 Debug.Log("Reponse: " + www.downloadHandler.text);
-                TextDescription.text = www.downloadHandler.text;
+                string[] posReturn = www.downloadHandler.text.Split(':');
+                GameDescription = posReturn[0];
+                TextDescription.text = GameDescription;
+                PlayerPrefs.SetString("game_id", posReturn[1]);
             }
         }
     }

@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 84264507}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 952458631}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnSelectedGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &84264507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,6 +1051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   Gamename: {fileID: 310185598}
   TextDescription: {fileID: 1547014133}
+  GameDescription: 
   Names:
   - GameName: "\u0E2A\u0E19\u0E38\u0E01\u0E01\u0E31\u0E1A\u0E40\u0E07\u0E32"
   - GameName: "\u0E01\u0E33\u0E41\u0E1E\u0E07\u0E2B\u0E23\u0E23\u0E29\u0E32"

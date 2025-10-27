@@ -5,15 +5,16 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class EndGame : MonoBehaviour
 {
-    private int i = 1;
     public TextMeshProUGUI part1, part2, part3, part4, part5;
-    public string child_id, game_id, score;
+    public string child_id;
+    public string game_id;
+    public int score;
     public void PHP()
     {
-        if(i > 0)
-        {
-            StartCoroutine(GetPoint());
-        }
+        child_id = PlayerPrefs.GetString("child_id");
+        game_id = PlayerPrefs.GetString("game_id");
+        score = PlayerPrefs.GetInt("score");
+        StartCoroutine(GetPoint());
     }
     
     public IEnumerator GetPoint()
@@ -44,5 +45,6 @@ public class EndGame : MonoBehaviour
                 part5.text = posReturn[4];
             }
         }
+        PlayerPrefs.SetInt("score", 0);
     }
 }

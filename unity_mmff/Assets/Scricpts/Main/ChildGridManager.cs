@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,11 +34,12 @@ public class ChildGridManager : MonoBehaviour
     public Sprite[] avatarSprites;
 
     [Header("Loading")]
-    public GameObject loadingPanel; 
+    public GameObject loadingPanel;
     public Text errorText; 
 
     private List<ChildData> childrenList = new List<ChildData>();
 
+    public string game_name;
     void Start()
     {
         PlayerPrefs.SetString("Scenename1", "ChooseChildScene");
@@ -155,8 +157,10 @@ public class ChildGridManager : MonoBehaviour
         ChildData selectedChild = childrenList[index];
         Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อ: {selectedChild.child_nickname}");
         
-        PlayerPrefs.SetString("selected_child_id", selectedChild.child_id);
-        PlayerPrefs.SetString("selected_child_nickname", selectedChild.child_nickname);
+        PlayerPrefs.SetString("child_id", selectedChild.child_id);
+        PlayerPrefs.SetString("child_nickname", selectedChild.child_nickname);
+        game_name = PlayerPrefs.GetString("game_name");
+        SceneManager.LoadScene(game_name);
         PlayerPrefs.Save();
     }
 
@@ -194,6 +198,8 @@ public class ChildCard : MonoBehaviour
 
     public void OnCardClicked()
     {
+        // game_name = PlayerPrefs.GetString("game_name");
         Debug.Log($"คลิกที่: {childData.child_nickname} (ID: {childData.child_id})");
+        // SceneManager.LoadScene(game_name);
     }
 }

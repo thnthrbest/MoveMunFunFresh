@@ -10,7 +10,9 @@ public class CountdownTimer : MonoBehaviour
     public TextMeshProUGUI timerText;              // ถ้ามี Text UI ให้ผูกใน Inspector
     public bool isRunning = false;
     private int lastSentSecond = -1;
-    int temp=0;
+    int temp = 0;
+    
+    public int score = 3;
 
 
     // void Update(){
@@ -39,13 +41,16 @@ public class CountdownTimer : MonoBehaviour
 
             yield return null;
         }
-        if(timeRemaining == 0)
-        {
-            
-            SceneManger.LoadScene("EndGame");
-        }
+
 
         isRunning = false;
+        if(isRunning == false)
+        {
+            
+            PlayerPrefs.SetString("game_id", "1");
+            PlayerPrefs.SetInt("score", score);
+            SceneManager.LoadScene("Endgame");
+        }
         Debug.Log("Time's up!");
     }
 }

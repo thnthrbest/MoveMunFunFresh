@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI; // จำเป็นสำหรับการควบคุม UI เช่น Image
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class PlayerHealth : MonoBehaviour
         // (ทางเลือก) ตรวจสอบว่าเลือดหมดหรือยัง
         if (currentHealth <= 0)
         {
+            PlayerPrefs.SetString("game_id", "2");
+            SceneManager.LoadScene("Endgame");
             Die();
         }
     }

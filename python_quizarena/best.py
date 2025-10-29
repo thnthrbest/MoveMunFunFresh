@@ -25,7 +25,7 @@ tracker = DeepSort(
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sockImg = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serverAddressPort = ("127.0.0.1", 5052) # Send y
+serverAddressPort = ("127.0.0.1", 6052) # Send y
 
 #<---- Setting Socket---->
 
@@ -48,7 +48,7 @@ id_mapping = {}  # แมป DeepSORT track_id -> custom_id ของเรา
 #<---- Receive img ---->
 def procressimg():
     global client_socket
-    sockImg.bind(("127.0.0.1", 5055))
+    sockImg.bind(("127.0.0.1", 6055))
     sockImg.listen(1)
     print("Waiting for connection...")
     client_socket, client_address = sockImg.accept()
@@ -147,7 +147,7 @@ def procressimg():
 #<---- Receive img end ---->
 
 sock_unity_revice = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock_unity_revice.bind(("127.0.0.1", 5051)) # Recive Value form unity (start anything)
+sock_unity_revice.bind(("127.0.0.1", 6051)) # Recive Value form unity (start anything)
 print(f"Listening on Unity : ReciveValue NUM.... ")
 data, addr = sock_unity_revice.recvfrom(1024)
 data = data.decode('utf-8')

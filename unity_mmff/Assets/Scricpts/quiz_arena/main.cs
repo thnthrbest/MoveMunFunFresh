@@ -16,7 +16,7 @@ public class main : MonoBehaviour
     [SerializeField] private uDPSender uDPSender;
 
     public string serverAddress = "127.0.0.1";
-    public int serverPort = 5055;
+    public int serverPort = 6055;
 
     Texture2D frame;
     Texture2D processedTexture;

@@ -12,7 +12,7 @@ public class uDPReceive : MonoBehaviour
     [SerializeField] private uDPSender uDPSender;
     Thread receiveThread;
     UdpClient client;
-    public int port = 5052;
+    public int port = 6052;
     public bool startRecieving = true;
     public bool printToConsole = false;
     public string data;

@@ -21,14 +21,6 @@ public class Startserver : MonoBehaviour
         Process.Start(ScriptFolder + ScriptName + ".vbs");
         UnityEngine.Debug.LogWarning("Server Has Started");
         yield return new WaitForSeconds(delayForStartServer);
-        StartCoroutine(re());
-        
-    }
-    IEnumerator re()
-    {
-        sendstate.send();
-        yield return new WaitForSeconds(delayForStartServer);
-        
         
     }
     public void ServerStart()

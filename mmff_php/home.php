@@ -1,4 +1,4 @@
-<?
+<?php
     require 'connect.php';
 
     $sql="select * from student"; 

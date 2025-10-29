@@ -16,7 +16,7 @@ public class Dec : MonoBehaviour
     [SerializeField] private UDPSender uDPSender;
 
     public string serverAddress = "127.0.0.1";
-    public int serverPort = 5055;
+    public int serverPort = 5058;
 
     Texture2D frame;
     Texture2D processedTexture;
@@ -24,14 +24,13 @@ public class Dec : MonoBehaviour
     void Start()
     {
 
-
         try
         {
             // Start the webcam
             WebCamDevice[] devices = WebCamTexture.devices;
             try
             {
-                webcamTexture = new WebCamTexture(devices[1].name);
+                webcamTexture = new WebCamTexture(devices[0].name);
 
             }
             catch (Exception e)

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using UnityEngine.InputSystem;
 public class sendstate : MonoBehaviour
 {
 
@@ -13,11 +14,14 @@ public class sendstate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             uDPSender.Sender(isDetec.ToString());
-            manange.play = isDetec;
         }
+    }
+    public void send(){
+        uDPSender.Sender(isDetec.ToString());
+        //StartCoroutine(manange.start_shadow());
     }
 
 

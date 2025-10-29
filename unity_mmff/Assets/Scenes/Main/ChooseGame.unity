@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 84264507}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 952458631}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OnSelectedGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &84264507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,8 +313,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 82ef44c6515e1794d86af2183b9eea3c, type: 2}
+  m_sharedMaterial: {fileID: 7940119106865799575, guid: 82ef44c6515e1794d86af2183b9eea3c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1039,14 +1051,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   Gamename: {fileID: 310185598}
   TextDescription: {fileID: 1547014133}
+  GameDescription: 
   Names:
-  - GameName: best
-  - GameName: jame
-  - GameName: un
-  - GameName: yoi
+  - GameName: "\u0E2A\u0E19\u0E38\u0E01\u0E01\u0E31\u0E1A\u0E40\u0E07\u0E32"
+  - GameName: "\u0E01\u0E33\u0E41\u0E1E\u0E07\u0E2B\u0E23\u0E23\u0E29\u0E32"
+  - GameName: "\u0E17\u0E49\u0E32\u0E2A\u0E21\u0E2D\u0E07\u0E1B\u0E23\u0E30\u0E25\u0E2D\u0E07\u0E04\u0E27\u0E34\u0E0B"
+  - GameName: "\u0E21\u0E37\u0E2D\u0E1B\u0E23\u0E32\u0E1A\u0E22\u0E38\u0E07\u0E25\u0E32\u0E22"
   GameImage: {fileID: 2007603984}
   GameImages:
-  - GameListSprite: {fileID: 21300000, guid: 9ab55b9715b9cd641816849a659a3ee3, type: 3}
+  - GameListSprite: {fileID: 21300000, guid: 97fb52c356b7ed94a8427a8f689ca388, type: 3}
   - GameListSprite: {fileID: 21300000, guid: ae7f064a7d617b8488add0f7efdff2a9, type: 3}
   - GameListSprite: {fileID: 21300000, guid: 59cd00a2de5c7684d82c983329dbc9bf, type: 3}
   - GameListSprite: {fileID: 21300000, guid: 78e30daed951d5e41bfd6a75e7528599, type: 3}
@@ -1407,8 +1420,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c236635e14dc69e438b38d8dc641a060, type: 2}
+  m_sharedMaterial: {fileID: -4165025978567606628, guid: c236635e14dc69e438b38d8dc641a060, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -74,6 +74,7 @@ public class startServer : MonoBehaviour
             UnityEngine.Debug.Log("score :" + temp + " value :"+value);
             temp++;
             score.text = temp.ToString();
+            PlayerPrefs.SetInt("score", temp);
             correct.gameObject.SetActive(true);
             sound_correct.Play();
             yield return new WaitForSeconds(1f);

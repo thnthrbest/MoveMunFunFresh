@@ -5,16 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class ChildAnalysisData
 {
     public string child_id;
-    public string child_name;
     public string child_nickname;
-    public string child_weight;
-    public string child_height;
-    public string child_age;
 }
 
 public class ChildAnalysis : MonoBehaviour
@@ -103,20 +100,16 @@ public class ChildAnalysis : MonoBehaviour
             string[] childInfo = childStr.Split(':');
             
             // ต้องมีอย่างน้อย 6 ฟิลด์ (id, name, nickname, weight, height, age)
-            if (childInfo.Length >= 6)
+            if (childInfo.Length >= 2)
             {
                 ChildAnalysisData child = new ChildAnalysisData
                 {
                     child_id = childInfo[0],
-                    child_name = childInfo[1],
-                    child_nickname = childInfo[2],
-                    child_weight = childInfo[3],
-                    child_height = childInfo[4],
-                    child_age = childInfo[5]
+                    child_nickname = childInfo[1],
                 };
 
                 childrenList.Add(child);
-                Debug.Log($"เพิ่มเด็ก: {child.child_nickname} (อายุ: {child.child_age}, น้ำหนัก: {child.child_weight}, ส่วนสูง: {child.child_height})");
+                Debug.Log($"เพิ่มเด็ก: {child.child_nickname})");
             }
             else
             {
@@ -172,17 +165,10 @@ public class ChildAnalysis : MonoBehaviour
         if (index < 0 || index >= childrenList.Count) return;
 
         ChildAnalysisData selectedChild = childrenList[index];
-        Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อจริง: {selectedChild.child_name}, ชื่อเล่น: {selectedChild.child_nickname}");
-        Debug.Log($"ข้อมูล - อายุ: {selectedChild.child_age} ปี, น้ำหนัก: {selectedChild.child_weight} kg, ส่วนสูง: {selectedChild.child_height} cm");
-
-        // บันทึกข้อมูลทั้งหมดลง PlayerPrefs
+        Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อ: {selectedChild.child_nickname}");
         PlayerPrefs.SetString("selected_child_id", selectedChild.child_id);
-        PlayerPrefs.SetString("selected_child_name", selectedChild.child_name);
         PlayerPrefs.SetString("selected_child_nickname", selectedChild.child_nickname);
-        PlayerPrefs.SetString("selected_child_weight", selectedChild.child_weight);
-        PlayerPrefs.SetString("selected_child_height", selectedChild.child_height);
-        PlayerPrefs.SetString("selected_child_age", selectedChild.child_age);
-        PlayerPrefs.Save();
+        SceneManager.LoadScene("DashBoard");
     }
 
     void ShowError(string message)
@@ -219,15 +205,6 @@ public class ChildAnalysisCard : MonoBehaviour
 
         if (nameText != null)
             nameText.text = data.child_nickname;
-
-        if (ageText != null)
-            ageText.text = $"อายุ: {data.child_age} ปี";
-
-        if (weightText != null)
-            weightText.text = $"น้ำหนัก: {data.child_weight} kg";
-
-        if (heightText != null)
-            heightText.text = $"ส่วนสูง: {data.child_height} cm";
     }
 
     public void OnCardClicked()

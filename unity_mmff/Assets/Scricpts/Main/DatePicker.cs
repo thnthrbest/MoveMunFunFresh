@@ -33,7 +33,7 @@ public class DatePicker : MonoBehaviour
         prevMonthButton.onClick.AddListener(PreviousMonth);
         nextMonthButton.onClick.AddListener(NextMonth);
         
-        datepickerPanel.SetActive(false);
+        datepickerPanel.SetActive(true);
         UpdateCalendar();
         UpdateSelectedDateDisplay();
     }
@@ -141,7 +141,8 @@ public class DatePicker : MonoBehaviour
     {
         selectedDate = date;
         UpdateSelectedDateDisplay();
-        datepickerPanel.SetActive(false);
+        datepickerPanel.SetActive(true);
+        SaveSelectedDateToPlayerPrefs();
         
         // Trigger event or callback here if needed
         OnDateSelected(selectedDate);
@@ -153,6 +154,14 @@ public class DatePicker : MonoBehaviour
         {
             selectedDateText.text = selectedDate.ToString("dd/MM/yyyy");
         }
+    }
+
+    void SaveSelectedDateToPlayerPrefs()
+    {
+        // บันทึกในรูปแบบ MySQL (YYYY-MM-DD)
+        string dateForMySQL = selectedDate.ToString("yyyy-MM-dd");
+        PlayerPrefs.SetString("selected_date", dateForMySQL);
+        Debug.Log("✓ Saved date to PlayerPrefs: " + dateForMySQL);
     }
 
     // Override this method or add UnityEvent to handle date selection
@@ -172,5 +181,10 @@ public class DatePicker : MonoBehaviour
         currentMonth = date;
         UpdateCalendar();
         UpdateSelectedDateDisplay();
+    }
+
+    public string GetSelectedDateForMySQL()
+    {
+        return selectedDate.ToString("yyyy-MM-dd");
     }
 }

@@ -1,0 +1,8 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Unity.PlayerPrefsEditor.Editor.csproj" />
+  <Project Path="XCharts.Examples.csproj" />
+  <Project Path="XCharts.Runtime.csproj" />
+  <Project Path="XCharts.Editor.csproj" />
+  <Project Path="Unity.PlayerPrefsEditor.EditorResources.csproj" />
+</Solution>

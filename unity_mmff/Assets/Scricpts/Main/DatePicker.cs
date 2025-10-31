@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.Events;
 
 public class DatePicker : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class DatePicker : MonoBehaviour
     public Color selectedDayColor = Color.cyan;
     public Color todayColor = Color.yellow;
     public Color otherMonthColor = Color.gray;
+
+    [Header("Events")]
+    public UnityEvent OnDateChanged;  
 
     private DateTime currentMonth;
     private DateTime selectedDate;
@@ -141,8 +145,10 @@ public class DatePicker : MonoBehaviour
     {
         selectedDate = date;
         UpdateSelectedDateDisplay();
-        datepickerPanel.SetActive(true);
+        UpdateCalendar();
         SaveSelectedDateToPlayerPrefs();
+        
+        OnDateChanged?.Invoke();
         
         // Trigger event or callback here if needed
         OnDateSelected(selectedDate);
@@ -161,6 +167,7 @@ public class DatePicker : MonoBehaviour
         // บันทึกในรูปแบบ MySQL (YYYY-MM-DD)
         string dateForMySQL = selectedDate.ToString("yyyy-MM-dd");
         PlayerPrefs.SetString("selected_date", dateForMySQL);
+        PlayerPrefs.Save();  // ⭐ เพิ่ม Save
         Debug.Log("✓ Saved date to PlayerPrefs: " + dateForMySQL);
     }
 
@@ -181,6 +188,7 @@ public class DatePicker : MonoBehaviour
         currentMonth = date;
         UpdateCalendar();
         UpdateSelectedDateDisplay();
+        OnDateChanged?.Invoke();  // ⭐ เรียก Event
     }
 
     public string GetSelectedDateForMySQL()

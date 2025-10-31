@@ -166,8 +166,8 @@ public class ChildAnalysis : MonoBehaviour
 
         ChildAnalysisData selectedChild = childrenList[index];
         Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อ: {selectedChild.child_nickname}");
-        PlayerPrefs.SetString("selected_child_id", selectedChild.child_id);
-        PlayerPrefs.SetString("selected_child_nickname", selectedChild.child_nickname);
+        PlayerPrefs.SetString("child_id", selectedChild.child_id);
+        PlayerPrefs.SetString("child_nickname", selectedChild.child_nickname);
         SceneManager.LoadScene("DashBoard");
     }
 

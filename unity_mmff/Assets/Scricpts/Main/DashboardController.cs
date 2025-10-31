@@ -14,32 +14,44 @@ public class DashboardController : MonoBehaviour
     [SerializeField] private string ChildIdKey = "child_id";
     private string child_id;
     private int score, game_id;
+
+    [Header("DatePicker Reference")]
+    public DatePicker datePicker;  // ⭐ เพิ่ม Reference
     
     [Header("Data Arrays")]
     public string[] posReturn; // ไม่ต้อง initialize
     public int[] part = new int[5]; // ต้อง initialize ให้มี 5 ช่อง
-    
+
     [Header("Chart Reference")]
     public BarChart barchart;
-    
     void Start()
     {
-        // ตรวจสอบว่า part array มี 5 ช่องจริงๆ
+        // Initialize
         if (part == null || part.Length != 5)
         {
             part = new int[5];
-            Debug.Log("Initialized part array with 5 elements");
         }
         
         child_id = PlayerPrefs.GetString("child_id", "Null");
         score = PlayerPrefs.GetInt("Score");
         game_id = PlayerPrefs.GetInt("game_id");
-        
+
         Debug.Log($"Starting with child_id: {child_id}, game_id: {game_id}, score: {score}");
-        
-        StartCoroutine(GetDataPlay());
+
+        // ⭐ Subscribe to DatePicker event
+        if (datePicker != null)
+        {
+            datePicker.OnDateChanged.AddListener(RefreshData);
+        }
+
+        // โหลดข้อมูลครั้งแรก
+        RefreshData();
     }
 
+    public void RefreshData()
+    {
+        StartCoroutine(GetDataPlay());
+    }
     public IEnumerator GetDataPlay()
     {
         string url = "http://localhost/mmff/GetDataPlay.php";
@@ -47,7 +59,7 @@ public class DashboardController : MonoBehaviour
         form.AddField("child_id", child_id);
         form.AddField("game_id", game_id);
         form.AddField("score", score);
-        
+
         // ✨ เพิ่มการส่งวันที่จาก DatePicker
         string selectedDate = PlayerPrefs.GetString("selected_date", DateTime.Now.ToString("yyyy-MM-dd"));
         form.AddField("play_date", selectedDate);
@@ -65,17 +77,17 @@ public class DashboardController : MonoBehaviour
             {
                 string response = www.downloadHandler.text.Trim();
                 Debug.Log("Response received: " + response);
-                
+
                 // แยกข้อมูลด้วย :
                 posReturn = response.Split(':');
                 Debug.Log("Split into " + posReturn.Length + " parts");
-                
+
                 // แสดงข้อมูลที่แยกได้
                 for (int i = 0; i < posReturn.Length; i++)
                 {
                     Debug.Log($"posReturn[{i}] = '{posReturn[i]}'");
                 }
-                
+
                 // Parse ข้อมูลอย่างปลอดภัย
                 for (int i = 0; i < 5; i++)
                 {
@@ -99,9 +111,9 @@ public class DashboardController : MonoBehaviour
                         Debug.Log($"○ part[{i}] = 0 (no data)");
                     }
                 }
-                
+
                 Debug.Log("Data parsing completed. Updating chart...");
-                
+
                 // Update chart หลังจาก parse ข้อมูลเสร็จ
                 ChartUpdate();
             }
@@ -117,17 +129,17 @@ public class DashboardController : MonoBehaviour
         }
 
         Debug.Log("Starting chart update...");
-        
+
         // ลบข้อมูลเก่า
         barchart.RemoveData();
-        
+
         // เพิ่ม serie ถ้ายังไม่มี
         if (barchart.series.Count == 0)
         {
             Debug.Log("Adding new Bar serie...");
             barchart.AddSerie<Bar>("BarChart");
         }
-        
+
         // เพิ่มข้อมูลทีละตัว
         Debug.Log("Adding data to chart:");
         for (int i = 0; i < 5; i++)
@@ -135,9 +147,18 @@ public class DashboardController : MonoBehaviour
             barchart.AddData(0, part[i]);
             Debug.Log($"  Data {i}: {part[i]}");
         }
-        
+
         // Refresh chart
         barchart.RefreshChart();
         Debug.Log("✓ Chart updated successfully!");
+    }
+    
+    void OnDestroy()
+    {
+        // ⭐ Unsubscribe เมื่อ destroy
+        if (datePicker != null)
+        {
+            datePicker.OnDateChanged.RemoveListener(RefreshData);
+        }
     }
 }

@@ -96,7 +96,7 @@ public class DecSeen : MonoBehaviour
         WebCamDevice[] devices = WebCamTexture.devices;
         if (devices.Length == 0) { Debug.LogError("ไม่พบเว็บแคม!"); this.enabled = false; return; }
         
-        webcamTexture = new WebCamTexture(devices[1].name, 640, 480, 30); 
+        webcamTexture = new WebCamTexture(devices[0].name, 640, 480, 30); 
         processedTexture = new Texture2D(2, 2); 
         webcamTexture.Play();
         
@@ -195,7 +195,7 @@ public class DecSeen : MonoBehaviour
                 0f
             );
             if (!hipsFound) {
-                 relativePos = new Vector3(0.5f - lm.x, 0.5f - lm.y, 0f);
+                relativePos = new Vector3(0.5f - lm.x, 0.5f - lm.y, 0f);
             }
             Vector3 scaledBodyPos = Vector3.Scale(relativePos, bodyScale); 
 

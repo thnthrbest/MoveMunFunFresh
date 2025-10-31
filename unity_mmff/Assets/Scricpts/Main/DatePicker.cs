@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.Events;
 
 public class DatePicker : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class DatePicker : MonoBehaviour
     public Color todayColor = Color.yellow;
     public Color otherMonthColor = Color.gray;
 
+    [Header("Events")]
+    public UnityEvent OnDateChanged;  
+
     private DateTime currentMonth;
     private DateTime selectedDate;
     private List<Button> dayButtons = new List<Button>();
@@ -33,7 +37,7 @@ public class DatePicker : MonoBehaviour
         prevMonthButton.onClick.AddListener(PreviousMonth);
         nextMonthButton.onClick.AddListener(NextMonth);
         
-        datepickerPanel.SetActive(false);
+        datepickerPanel.SetActive(true);
         UpdateCalendar();
         UpdateSelectedDateDisplay();
     }
@@ -141,7 +145,10 @@ public class DatePicker : MonoBehaviour
     {
         selectedDate = date;
         UpdateSelectedDateDisplay();
-        datepickerPanel.SetActive(false);
+        UpdateCalendar();
+        SaveSelectedDateToPlayerPrefs();
+        
+        OnDateChanged?.Invoke();
         
         // Trigger event or callback here if needed
         OnDateSelected(selectedDate);
@@ -153,6 +160,15 @@ public class DatePicker : MonoBehaviour
         {
             selectedDateText.text = selectedDate.ToString("dd/MM/yyyy");
         }
+    }
+
+    void SaveSelectedDateToPlayerPrefs()
+    {
+        // บันทึกในรูปแบบ MySQL (YYYY-MM-DD)
+        string dateForMySQL = selectedDate.ToString("yyyy-MM-dd");
+        PlayerPrefs.SetString("selected_date", dateForMySQL);
+        PlayerPrefs.Save();  // ⭐ เพิ่ม Save
+        Debug.Log("✓ Saved date to PlayerPrefs: " + dateForMySQL);
     }
 
     // Override this method or add UnityEvent to handle date selection
@@ -172,5 +188,11 @@ public class DatePicker : MonoBehaviour
         currentMonth = date;
         UpdateCalendar();
         UpdateSelectedDateDisplay();
+        OnDateChanged?.Invoke();  // ⭐ เรียก Event
+    }
+
+    public string GetSelectedDateForMySQL()
+    {
+        return selectedDate.ToString("yyyy-MM-dd");
     }
 }

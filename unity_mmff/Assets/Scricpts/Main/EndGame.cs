@@ -23,7 +23,7 @@ public class EndGame : MonoBehaviour
         
         StartCoroutine(GetPoint());
     }
-    
+
     public IEnumerator GetPoint()
     {
         string url = "http://localhost/mmff/GetDataPlay.php";
@@ -60,7 +60,7 @@ public class EndGame : MonoBehaviour
 
             // ให้ NumberCounter นับอัตโนมัติ
             NumberCounter[] counters = { part1Counter, part2Counter, part3Counter, part4Counter, part5Counter };
-            
+
             for (int i = 0; i < counters.Length; i++)
             {
                 if (int.TryParse(data[i], out int value))
@@ -74,8 +74,16 @@ public class EndGame : MonoBehaviour
             }
 
         }
+
+        
+    }
+    
+    public void ChooseAnotherGame()
+    {
         PlayerPrefs.SetInt("score", 0);
         PlayerPrefs.SetString("game_id", null);
         PlayerPrefs.SetString("child_id", null);
+
+        SceneManager.LoadScene("ChooseGame");
     }
 }

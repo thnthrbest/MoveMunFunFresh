@@ -159,6 +159,7 @@ public class ChildGridManager : MonoBehaviour
         
         PlayerPrefs.SetString("child_id", selectedChild.child_id);
         PlayerPrefs.SetString("child_nickname", selectedChild.child_nickname);
+        PlayerPrefs.SetInt("score", 0);
         game_name = PlayerPrefs.GetString("game_name");
         SceneManager.LoadScene(game_name);
         PlayerPrefs.Save();

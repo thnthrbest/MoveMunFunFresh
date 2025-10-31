@@ -73,37 +73,40 @@ public class DecSeen : MonoBehaviour
     private bool isReady = false;
     
     
-    void Start()
+    // ... (โค้ดอื่นๆ ในไฟล์ DecSeen.cs) ...
+
+void Start()
+{
+    // ... (โค้ดอื่นๆ ใน Start() ที่อาจจะอยู่ก่อนหน้า) ...
+
+    // 1. ค้นหากล้อง
+    WebCamDevice[] devices = WebCamTexture.devices;
+
+    // ⭐️⭐️⭐️ 2. เพิ่มโค้ด "กันพัง" ตรงนี้! ⭐️⭐️⭐️
+    if (devices.Length == 0) 
     {
-        // (1. ตรวจสอบ BoxCollider)
-        if (gameAreaBounds == null)
-        {
-            Debug.LogError("!!! [Dec.cs] Error: 'Game Area Bounds' (BoxCollider) ยังไม่ได้ลากมาใส่! ปิดการทำงานสคริปต์.");
-            this.enabled = false; 
-            return;
-        }
-        actualGameSize = gameAreaBounds.size; // (อ่านแค่ Size)
-        Debug.Log("[Dec.cs] อ่านค่า 'Size' (ระยะขยับ) จาก " + gameAreaBounds.name + " สำเร็จ, ขนาดคือ: " + actualGameSize);
-
-
-        // (2. ตรวจสอบ Starting Point)
-        if (startingPointOrigin == null) {
-            Debug.LogWarning("[Dec.cs] 'Starting Point Origin' ไม่ได้ตั้งค่า, จะใช้ GameObject นี้เป็น Center แทน");
-            startingPointOrigin = this.transform; 
-        }
-
-        // (3. ส่วนที่เหลือของ Start() เหมือนเดิม)
-        WebCamDevice[] devices = WebCamTexture.devices;
-        if (devices.Length == 0) { Debug.LogError("ไม่พบเว็บแคม!"); this.enabled = false; return; }
+        Debug.LogError("!!! [DecSeen.cs] ไม่พบเว็บแคม!");
+        Debug.LogError("กรุณาตรวจสอบว่าเสียบกล้องและเปิดใช้งานเรียบร้อยแล้ว");
         
-        webcamTexture = new WebCamTexture(devices[1].name, 640, 480, 30); 
-        processedTexture = new Texture2D(2, 2); 
-        webcamTexture.Play();
-        
-        StartCoroutine(InitializeTextures());
-        ConnectToServer();
-        currentLandmarks = new LandmarkList();
+        this.enabled = false; // ปิดสคริปต์นี้ไปเลย
+        return; // 👈 ออกจากฟังก์ชัน Start() ทันที (ไม่ไปทำบรรทัดที่ 99)
     }
+    // ⭐️⭐️⭐️ ---------------------------------- ⭐️⭐️⭐️
+
+    // 3. (นี่คือบรรทัดที่ 99 ของคุณ)
+    // โค้ดนี้จะปลอดภัยแล้ว เพราะมันจะทำงานก็ต่อเมื่อ devices.Length > 0
+    webcamTexture = new WebCamTexture(devices[0].name, 640, 480, 30); 
+    
+    // ... (โค้ดที่เหลือใน Start() เช่น processedTexture, webcamTexture.Play()) ...
+    processedTexture = new Texture2D(2, 2); 
+    webcamTexture.Play();
+    
+    StartCoroutine(InitializeTextures());
+    ConnectToServer();
+    currentLandmarks = new LandmarkList();
+}
+
+// ... (โค้ดส่วนที่เหลือของไฟล์) ...
     
     System.Collections.IEnumerator InitializeTextures()
     {

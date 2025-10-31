@@ -307,7 +307,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1788534670, guid: ba70841b5198f7442b8e856d9144afb9, type: 3}
+  m_Sprite: {fileID: 178368187, guid: ba70841b5198f7442b8e856d9144afb9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1642,7 +1642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1788534670, guid: ba70841b5198f7442b8e856d9144afb9, type: 3}
+  m_Sprite: {fileID: 178368187, guid: ba70841b5198f7442b8e856d9144afb9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2944,7 +2944,7 @@ GameObject:
   - component: {fileID: 1586466199}
   - component: {fileID: 1586466198}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TImer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3410,7 +3410,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1788534670, guid: ba70841b5198f7442b8e856d9144afb9, type: 3}
+  m_Sprite: {fileID: 178368187, guid: ba70841b5198f7442b8e856d9144afb9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

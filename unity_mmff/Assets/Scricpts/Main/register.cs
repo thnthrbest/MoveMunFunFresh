@@ -63,5 +63,7 @@ public class register : MonoBehaviour
                 Debug.Log("1");
             }
         }
+
+        SceneManager.LoadScene("LoadingScene");
     }
 }

@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::startServer
   CanStart: 1
-  ScriptFolder: D:/Github/MoveMunFunFresh/python_handmade/sever/
+  ScriptFolder: D:/MoveMunFunFresh/python_handmade/sever/
   ScriptName: start_main_bat
   delayForStartServer: 3
   dec: {fileID: 987308846}

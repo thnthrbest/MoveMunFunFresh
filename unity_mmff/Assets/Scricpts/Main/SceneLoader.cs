@@ -46,7 +46,7 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void Continue()
-    {
+    {   
         game_name = PlayerPrefs.GetString("game_name");
         SceneManager.LoadScene(game_name);
     }

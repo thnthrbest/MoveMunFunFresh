@@ -8,7 +8,7 @@ public class uDPSender : MonoBehaviour
 {
     UdpClient udpClient;
     public string ip = "127.0.0.1";
-    public int port = 5051;
+    public int port = 6051;
 
     public string num = "3";
 

@@ -62,7 +62,7 @@ public class startServer : MonoBehaviour
     {
         sendstate.send();
         correct.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         StartCoroutine(manange.change_img(UDPReceive.a[0]));
         yield return new WaitForSeconds(6f);
         while(true){

@@ -60,6 +60,7 @@ public class TimeCounter : MonoBehaviour
         {
             audioSource.PlayOneShot(startSound); 
         }
+        countdownText.enabled = true;
 
         countdownText.text = "3";
         yield return new WaitForSeconds(1.0f); 

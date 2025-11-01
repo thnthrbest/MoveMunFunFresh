@@ -1441,7 +1441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Startserver
   CanStart: 1
-  ScriptFolder: D:/GitHub\MoveMunFunFresh/python_quizarena/sever/
+  ScriptFolder: D:/MoveMunFunFresh/python_quizarena/sever/
   ScriptName: start_main_bat
   delayForStartServer: 4
   sendstate: {fileID: 965833482}

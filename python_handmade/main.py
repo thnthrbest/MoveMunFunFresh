@@ -208,28 +208,42 @@ while True:
 
                 mp_drawing.draw_landmarks(original, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
-        # ส่วนการตรวจจับสัตว์ - ทำงานเฉพาะเมื่อมีมือ
-        if detect and hand_detected:
-            try:
-                results_shadow = model_shadow(output, show=False)
-                
-                for shadow_result in results_shadow:
-                    shadow_boxes = shadow_result.boxes
-                    if shadow_boxes is not None and len(shadow_boxes) > 0:
-                        for shadow_box in shadow_boxes:
-                            # Bounding box coordinates
-                            x1s, y1s, x2s, y2s = map(int, shadow_box.xyxy[0].tolist())
-                            
-                            # Confidence and class
-                            conf_s = float(shadow_box.conf[0])
-                            cls_s = int(shadow_box.cls[0])
-                            
-                            # Label
-                            label_text = f"{model_shadow.names[cls_s]} {conf_s:.2f}"
-                            sock.sendto(str.encode(label_text), serverAddressPort)
+        # ส่วนการตรวจจับสัตว์
+        if detect:
+            if hand_detected:  # มีมือถึงจะตรวจจับ
+                try:
+                    results_shadow = model_shadow(output, show=False)
+                    detection_found = False
                     
-            except Exception as e:
-                print(f"Shadow detection error: {e}")
+                    for shadow_result in results_shadow:
+                        shadow_boxes = shadow_result.boxes
+                        if shadow_boxes is not None and len(shadow_boxes) > 0:
+                            for shadow_box in shadow_boxes:
+                                # Bounding box coordinates
+                                x1s, y1s, x2s, y2s = map(int, shadow_box.xyxy[0].tolist())
+                                
+                                # Confidence and class
+                                conf_s = float(shadow_box.conf[0])
+                                cls_s = int(shadow_box.cls[0])
+                                
+                                # Label
+                                label_text = f"{model_shadow.names[cls_s]} {conf_s:.2f}"
+                                sock.sendto(str.encode(label_text), serverAddressPort)
+                                detection_found = True
+                    
+                    # ถ้าไม่พบสัตว์ให้ส่งสัญญาณ
+                    if not detection_found:
+                        sock.sendto(str.encode("NO_DETECTION"), serverAddressPort)
+                        
+                except Exception as e:
+                    print(f"Shadow detection error: {e}")
+                    sock.sendto(str.encode("DETECTION_ERROR"), serverAddressPort)
+            else:
+                # ไม่มีมือ ส่งสัญญาณไปยัง Unity
+                try:
+                    sock.sendto(str.encode("NO_HAND"), serverAddressPort)
+                except Exception as e:
+                    print(f"Error sending NO_HAND signal: {e}")
 
         # Send Process Image To Unity 
         _, img_encoded = cv2.imencode('.jpg', original)

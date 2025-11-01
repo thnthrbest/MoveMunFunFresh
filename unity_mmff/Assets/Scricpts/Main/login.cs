@@ -25,7 +25,7 @@ public class login : MonoBehaviour
 
     public IEnumerator GetLogin()
     {
-        string url = "http://localhost/mmff_php/login.php";
+        string url = "http://localhost/mmff/login.php";
         WWWForm form = new WWWForm();
         form.AddField("id", ID_text);
         form.AddField("password", Password_text);

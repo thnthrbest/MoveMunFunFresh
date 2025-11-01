@@ -10,8 +10,10 @@ public class SceneLoader : MonoBehaviour
     {
         public string sceneName;
         [TextArea(1, 2)]
-        public string description; 
+        public string description;
     }
+
+    public string game_name;
 
     [Header("Scene List")]
     public List<SceneData> scenes = new List<SceneData>();
@@ -41,5 +43,11 @@ public class SceneLoader : MonoBehaviour
         {
             Debug.Log($"[{i}] {scenes[i].sceneName} - {scenes[i].description}");
         }
+    }
+
+    public void Continue()
+    {   
+        game_name = PlayerPrefs.GetString("game_name");
+        SceneManager.LoadScene(game_name);
     }
 }

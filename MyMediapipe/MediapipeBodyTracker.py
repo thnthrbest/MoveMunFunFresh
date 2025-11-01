@@ -6,7 +6,7 @@ import struct
 import json    
 
 HOST = '127.0.0.1'
-PORT = 5000 
+PORT = 7052 
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils # (เวอร์ชันช้า ต้องมี)

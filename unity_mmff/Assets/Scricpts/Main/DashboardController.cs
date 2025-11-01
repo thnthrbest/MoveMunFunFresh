@@ -10,92 +10,60 @@ using UnityEngine.InputSystem;
 using TMPro;
 public class DashboardController : MonoBehaviour
 {
-    [Header("Child Settings")]
-    [SerializeField] private string childIdKey = "Child_id"; // Key จาก PlayerPrefs
-    private string child_id = "1";
+    [Header("Child Setting")]
+    [SerializeField] private string ChildIdKey = "child_id";
+    private string child_id;
+    private int score, game_id;
 
-    [Header("API Settings")]
-    [SerializeField] private string apiURL = "http://localhost/mmff/GetDataPlay.php";
-    [SerializeField] private string game_id = "1"; // ระบุ game_id ที่ต้องการ
-    [SerializeField] private string score = "0"; // คะแนนที่ได้
+    [Header("DatePicker Reference")]
+    public DatePicker datePicker;  // ⭐ เพิ่ม Reference
+    
+    [Header("Data Arrays")]
+    public string[] posReturn; // ไม่ต้อง initialize
+    public int[] part = new int[5]; // ต้อง initialize ให้มี 5 ช่อง
 
-    [Header("Chart References")]
-    [SerializeField] private BarChart partChart; // Bar Chart สำหรับแสดง part1-5
-
-    [Header("UI Display")]
-    [SerializeField] private TextMeshProUGUI statusText;
-    [SerializeField] private TextMeshProUGUI childIdText;
-    [SerializeField] private GameObject loadingPanel;
-
-    [Header("Part Labels")]
-    [SerializeField] private string[] partLabels = new string[] 
-    { 
-        "Part 1", 
-        "Part 2", 
-        "Part 3", 
-        "Part 4", 
-        "Part 5" 
-    };
-
-    [Header("Colors")]
-    [SerializeField] private Color[] barColors = new Color[]
-    {
-        new Color(0.2f, 0.6f, 1f),    // Part 1 - Blue
-        new Color(0.3f, 0.8f, 0.3f),  // Part 2 - Green
-        new Color(1f, 0.6f, 0.2f),    // Part 3 - Orange
-        new Color(0.9f, 0.3f, 0.3f),  // Part 4 - Red
-        new Color(0.7f, 0.3f, 0.9f)   // Part 5 - Purple
-    };
-
-    private bool isLoading = false;
-
+    [Header("Chart Reference")]
+    public BarChart barchart;
     void Start()
     {
-        // อ่าน Child_id จาก PlayerPrefs
-        LoadChildId();
+        // Initialize
+        if (part == null || part.Length != 5)
+        {
+            part = new int[5];
+        }
         
-        if (!string.IsNullOrEmpty(child_id))
+        child_id = PlayerPrefs.GetString("child_id", "Null");
+        score = PlayerPrefs.GetInt("Score");
+        game_id = PlayerPrefs.GetInt("game_id");
+
+        Debug.Log($"Starting with child_id: {child_id}, game_id: {game_id}, score: {score}");
+
+        // ⭐ Subscribe to DatePicker event
+        if (datePicker != null)
         {
-            StartCoroutine(GetData());
+            datePicker.OnDateChanged.AddListener(RefreshData);
         }
-        else
-        {
-            UpdateStatus("Error: Child_id not found!");
-            Debug.LogError("Child_id not set in PlayerPrefs!");
-        }
+
+        // โหลดข้อมูลครั้งแรก
+        RefreshData();
     }
 
-    void LoadChildId()
+    public void RefreshData()
     {
-        if (PlayerPrefs.HasKey(childIdKey))
-        {
-            child_id = PlayerPrefs.GetInt(childIdKey).ToString();
-            Debug.Log($"Loaded Child_id: {child_id}");
-            
-            if (childIdText != null)
-            {
-                childIdText.text = $"Child ID: {child_id}";
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Child_id not found in PlayerPrefs!");
-        }
+        StartCoroutine(GetDataPlay());
     }
-
-    public IEnumerator GetData()
+    public IEnumerator GetDataPlay()
     {
-        if (isLoading) yield break;
-        
-        isLoading = true;
-        ShowLoading(true);
-        UpdateStatus("Loading data...");
-
-        string url = apiURL;
+        string url = "http://localhost/mmff/GetDataPlay.php";
         WWWForm form = new WWWForm();
         form.AddField("child_id", child_id);
         form.AddField("game_id", game_id);
         form.AddField("score", score);
+
+        // ✨ เพิ่มการส่งวันที่จาก DatePicker
+        string selectedDate = PlayerPrefs.GetString("selected_date", DateTime.Now.ToString("yyyy-MM-dd"));
+        form.AddField("play_date", selectedDate);
+        Debug.Log("Sending date: " + selectedDate);
 
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
@@ -103,219 +71,94 @@ public class DashboardController : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                UpdateStatus($"Error: {www.error}");
-                Debug.LogError("Request Error: " + www.error);
+                Debug.LogError("Error fetching data: " + www.error);
             }
             else
             {
-                string response = www.downloadHandler.text;
-                Debug.Log("Response: " + response);
+                string response = www.downloadHandler.text.Trim();
+                Debug.Log("Response received: " + response);
 
-                // แยกข้อมูล part1:part2:part3:part4:part5
-                string[] partData = response.Split(':');
+                // แยกข้อมูลด้วย :
+                posReturn = response.Split(':');
+                Debug.Log("Split into " + posReturn.Length + " parts");
 
-                if (partData.Length == 5)
+                // แสดงข้อมูลที่แยกได้
+                for (int i = 0; i < posReturn.Length; i++)
                 {
-                    // แปลงเป็นตัวเลข
-                    float[] partValues = new float[5];
-                    bool parseSuccess = true;
+                    Debug.Log($"posReturn[{i}] = '{posReturn[i]}'");
+                }
 
-                    for (int i = 0; i < 5; i++)
+                // Parse ข้อมูลอย่างปลอดภัย
+                for (int i = 0; i < 5; i++)
+                {
+                    if (i < posReturn.Length) // เช็คว่า index ไม่เกิน
                     {
-                        if (float.TryParse(partData[i], out partValues[i]))
+                        string valueStr = posReturn[i].Trim(); // ลบช่องว่าง
+                        if (int.TryParse(valueStr, out int value))
                         {
-                            Debug.Log($"Part {i + 1}: {partValues[i]}");
+                            part[i] = value;
+                            Debug.Log($"✓ part[{i}] = {value}");
                         }
                         else
                         {
-                            Debug.LogError($"Failed to parse Part {i + 1}: {partData[i]}");
-                            parseSuccess = false;
-                            break;
+                            part[i] = 0;
+                            Debug.LogWarning($"✗ Cannot parse '{valueStr}', set part[{i}] = 0");
                         }
-                    }
-
-                    if (parseSuccess)
-                    {
-                        UpdateChart(partValues);
-                        UpdateStatus("Data loaded successfully!");
                     }
                     else
                     {
-                        UpdateStatus("Error: Invalid data format");
+                        part[i] = 0;
+                        Debug.Log($"○ part[{i}] = 0 (no data)");
                     }
                 }
-                else
-                {
-                    UpdateStatus($"Error: Expected 5 values, got {partData.Length}");
-                    Debug.LogError($"Invalid response format. Expected 5 parts, got {partData.Length}");
-                }
+
+                Debug.Log("Data parsing completed. Updating chart...");
+
+                // Update chart หลังจาก parse ข้อมูลเสร็จ
+                ChartUpdate();
             }
         }
-
-        ShowLoading(false);
-        isLoading = false;
     }
 
-    void UpdateChart(float[] partValues)
+    public void ChartUpdate()
     {
-        if (partChart == null)
+        if (barchart == null)
         {
-            Debug.LogError("BarChart reference not set!");
+            Debug.LogError("BarChart reference is null! Please assign it in Inspector.");
             return;
         }
 
-        // Clear ข้อมูลเก่า
-        partChart.ClearData();
+        Debug.Log("Starting chart update...");
 
-        // ตั้งค่า Title
-        var title = partChart.EnsureChartComponent<Title>();
-        title.show = true;
-        title.text = $"Game Performance - Child {child_id}";
-        title.subText = $"Date: {System.DateTime.Now:dd/MM/yyyy}";
+        // ลบข้อมูลเก่า
+        barchart.RemoveData();
 
-        // ตั้งค่า X Axis (Categories)
-        var xAxis = partChart.EnsureChartComponent<XAxis>();
-        xAxis.show = true;
-        xAxis.type = Axis.AxisType.Category;
-
-        // ตั้งค่า Y Axis (Values)
-        var yAxis = partChart.EnsureChartComponent<YAxis>();
-        yAxis.show = true;
-        yAxis.type = Axis.AxisType.Value;
-        yAxis.splitNumber = 5;
-
-        // ตั้งค่า Tooltip
-        var tooltip = partChart.EnsureChartComponent<Tooltip>();
-        tooltip.show = true;
-
-        // ตั้งค่า Legend
-        var legend = partChart.EnsureChartComponent<Legend>();
-        legend.show = true;
-
-        // เพิ่ม Serie
-        var serie = partChart.AddSerie<Bar>("Parts");
-        serie.barWidth = 0.6f;
-        serie.barGap = 0.3f;
-
-        // เพิ่มข้อมูล
-        for (int i = 0; i < partValues.Length; i++)
+        // เพิ่ม serie ถ้ายังไม่มี
+        if (barchart.series.Count == 0)
         {
-            // เพิ่ม X-axis label
-            partChart.AddXAxisData(partLabels[i]);
-            
-            // เพิ่มข้อมูล
-            var serieData = partChart.AddData(0, partValues[i]);
-            
-            // ตั้งสีแต่ละแท่ง
-            if (serieData != null && i < barColors.Length)
-            {
-                var itemStyle = serieData.EnsureComponent<ItemStyle>();
-                itemStyle.color = barColors[i];
-            }
+            Debug.Log("Adding new Bar serie...");
+            barchart.AddSerie<Bar>("BarChart");
         }
 
-        // Refresh Chart
-        partChart.RefreshChart();
-        
-        Debug.Log("Chart updated successfully!");
+        // เพิ่มข้อมูลทีละตัว
+        Debug.Log("Adding data to chart:");
+        for (int i = 0; i < 5; i++)
+        {
+            barchart.AddData(0, part[i]);
+            Debug.Log($"  Data {i}: {part[i]}");
+        }
+
+        // Refresh chart
+        barchart.RefreshChart();
+        Debug.Log("✓ Chart updated successfully!");
     }
-
-    // ===== Helper Methods =====
-
-    void ShowLoading(bool show)
+    
+    void OnDestroy()
     {
-        if (loadingPanel != null)
+        // ⭐ Unsubscribe เมื่อ destroy
+        if (datePicker != null)
         {
-            loadingPanel.SetActive(show);
+            datePicker.OnDateChanged.RemoveListener(RefreshData);
         }
-    }
-
-    void UpdateStatus(string message)
-    {
-        if (statusText != null)
-        {
-            statusText.text = message;
-        }
-        Debug.Log($"Status: {message}");
-    }
-
-    // ===== Public Methods =====
-
-    public void RefreshData()
-    {
-        if (!isLoading)
-        {
-            StartCoroutine(GetData());
-        }
-    }
-
-    public void SetGameId(string newGameId)
-    {
-        game_id = newGameId;
-        Debug.Log($"Game ID set to: {game_id}");
-    }
-
-    public void SetScore(string newScore)
-    {
-        score = newScore;
-        Debug.Log($"Score set to: {score}");
-    }
-
-    public void SetChildId(int newChildId)
-    {
-        child_id = newChildId.ToString();
-        PlayerPrefs.SetInt(childIdKey, newChildId);
-        PlayerPrefs.Save();
-        
-        if (childIdText != null)
-        {
-            childIdText.text = $"Child ID: {child_id}";
-        }
-        
-        Debug.Log($"Child ID changed to: {child_id}");
-    }
-
-    // ===== Debug Buttons =====
-    void OnGUI()
-    {
-        GUILayout.BeginArea(new Rect(10, 10, 200, 250));
-        GUILayout.Label("=== Dashboard Debug ===");
-        
-        GUILayout.Label($"Child ID: {child_id}");
-        GUILayout.Label($"Game ID: {game_id}");
-        GUILayout.Label($"Score: {score}");
-        
-        if (GUILayout.Button("Refresh Data"))
-        {
-            RefreshData();
-        }
-        
-        GUILayout.Space(10);
-        GUILayout.Label("--- Test Game IDs ---");
-        
-        if (GUILayout.Button("Set Game ID = 1"))
-        {
-            SetGameId("1");
-        }
-        
-        if (GUILayout.Button("Set Game ID = 2"))
-        {
-            SetGameId("2");
-        }
-        
-        GUILayout.Space(10);
-        
-        if (GUILayout.Button("Set Score = 100"))
-        {
-            SetScore("100");
-        }
-        
-        if (GUILayout.Button("Reload Data"))
-        {
-            LoadChildId();
-            StartCoroutine(GetData());
-        }
-        
-        GUILayout.EndArea();
     }
 }

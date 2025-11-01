@@ -22,7 +22,7 @@ public class manange : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        imagePath = "D:/Github/MoveMunFunFresh/unity_mmff/Assets/img_handmade/" + a + ".png";
+        imagePath = "D:/MoveMunFunFresh/python_handmade/img_unity/" + a + ".png";
 
         // โหลด byte[] จากไฟล์
         byte[] fileData = File.ReadAllBytes(imagePath);

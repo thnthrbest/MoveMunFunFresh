@@ -5,17 +5,25 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class EndGame : MonoBehaviour
 {
-    private int i = 1;
-    public TextMeshProUGUI part1, part2, part3, part4, part5;
-    public string child_id, game_id, score;
-    public void PHP()
-    {
-        if(i > 0)
-        {
-            StartCoroutine(GetPoint());
-        }
-    }
+    public NumberCounter part1Counter;
+    public NumberCounter part2Counter;
+    public NumberCounter part3Counter;
+    public NumberCounter part4Counter;
+    public NumberCounter part5Counter;
     
+    private string child_id;
+    private string game_id;
+    private int score;
+
+    void Start()
+    {
+        child_id = PlayerPrefs.GetString("child_id");
+        game_id = PlayerPrefs.GetString("game_id");
+        score = PlayerPrefs.GetInt("score");
+        
+        StartCoroutine(GetPoint());
+    }
+
     public IEnumerator GetPoint()
     {
         string url = "http://localhost/mmff/GetDataPlay.php";
@@ -26,23 +34,56 @@ public class EndGame : MonoBehaviour
 
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
+            www.timeout = 10;
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log("Error");
+                Debug.LogError($"Error: {www.error}");
+                yield break;
             }
-            else
-            {
-                Debug.Log("Reponse: " + www.downloadHandler.text);
-                string[] posReturn = www.downloadHandler.text.Split(':');
 
-                part1.text = posReturn[0];
-                part2.text = posReturn[1];
-                part3.text = posReturn[2];
-                part4.text = posReturn[3];
-                part5.text = posReturn[4];
+            if (string.IsNullOrEmpty(www.downloadHandler.text))
+            {
+                Debug.LogError("No data received");
+                yield break;
             }
+
+            Debug.Log("Response: " + www.downloadHandler.text);
+
+            string[] data = www.downloadHandler.text.Split(':');
+            if (data.Length != 5)
+            {
+                Debug.LogError($"Invalid data. Expected 5 values, got {data.Length}");
+                yield break;
+            }
+
+            // ให้ NumberCounter นับอัตโนมัติ
+            NumberCounter[] counters = { part1Counter, part2Counter, part3Counter, part4Counter, part5Counter };
+
+            for (int i = 0; i < counters.Length; i++)
+            {
+                if (int.TryParse(data[i], out int value))
+                {
+                    value = Mathf.Min(value, 10);
+                    if (counters[i] != null)
+                    {
+                        counters[i].SetTargetValue(value);
+                    }
+                }
+            }
+
         }
+
+        
+    }
+    
+    public void ChooseAnotherGame()
+    {
+        PlayerPrefs.SetInt("score", 0);
+        PlayerPrefs.SetString("game_id", null);
+        PlayerPrefs.SetString("child_id", null);
+
+        SceneManager.LoadScene("ChooseGame");
     }
 }

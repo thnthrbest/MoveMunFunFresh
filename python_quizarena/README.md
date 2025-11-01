@@ -5,7 +5,7 @@ Tracking and counting persons
 ```
 > pip install virtualenv
 > py -3.10 -m venv env
-> env\Scripts\activat
+> env\Scripts\activate
 > pip install -r requirements.txt
 
 ```

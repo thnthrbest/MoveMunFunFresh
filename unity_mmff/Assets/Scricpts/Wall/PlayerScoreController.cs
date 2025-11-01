@@ -29,6 +29,7 @@ public class PlayerScoreController : MonoBehaviour
     void AddScore(int pointsToAdd)
     {
         score += pointsToAdd;
+        PlayerPrefs.SetInt("score", score);
         UpdateScoreText();
     }
 

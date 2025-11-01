@@ -99,7 +99,7 @@ public class Dec : MonoBehaviour
                 // Debug.LogError("Writer is not initialized.");
                 return;
             }
-     
+    
 
             // Wait for processed frame from Python
             try

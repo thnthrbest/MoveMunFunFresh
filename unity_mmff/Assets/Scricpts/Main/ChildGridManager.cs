@@ -42,8 +42,6 @@ public class ChildGridManager : MonoBehaviour
     public string game_name;
     void Start()
     {
-        PlayerPrefs.SetString("Scenename1", "ChooseChildScene");
-        PlayerPrefs.SetString("Scenename2","ChildData");
         LoadChildrenData();
     }
 

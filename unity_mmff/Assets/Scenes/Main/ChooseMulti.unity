@@ -591,15 +591,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 729597703}
-  - component: {fileID: 729597702}
+  - component: {fileID: 729597704}
   m_Layer: 0
-  m_Name: ChildGridManager
+  m_Name: ChildMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &729597702
+--- !u!4 &729597703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729597701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 695.9066, y: 861.31067, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &729597704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -608,9 +623,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 729597701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9504cf2c6caa37e46b1e2c503a4ecc59, type: 3}
+  m_Script: {fileID: 11500000, guid: 8993b410f87f8fb48baeb0517ac41c1d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChildGridManager
+  m_EditorClassIdentifier: Assembly-CSharp::ChildMulti
   phpUrl: http://localhost/mmff/choose.php
   userId: 1
   childCardPrefab: {fileID: 8692892413631066200, guid: b9f5ba5b42ba5f34a922d0af02396956, type: 3}
@@ -635,24 +650,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 53fe86a5bbd592b478787f65c5115769, type: 3}
   - {fileID: 21300000, guid: e98aef1d3e02c27438b44c03afdec85a, type: 3}
   - {fileID: 21300000, guid: 23374b41519fba3478b0ad4e1c44138b, type: 3}
+  - {fileID: 21300000, guid: c2c50b1cc29e86e43869c56e6c64ea51, type: 3}
   loadingPanel: {fileID: 0}
   errorText: {fileID: 0}
+  countchild: 0
+  temp1: 
+  temp2: 
   game_name: 
---- !u!4 &729597703
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729597701}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 695.9066, y: 861.31067, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &807270560
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,7 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8117647, b: 0.43529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -10,11 +10,16 @@ public class uDPSender : MonoBehaviour
     public string ip = "127.0.0.1";
     public int port = 6051;
 
-    public string num = "3";
+    public string num;
 
     void Awake()
     {
         udpClient = new UdpClient();
+    }
+
+    public void Start()
+    {
+        num = (PlayerPrefs.GetInt("CountChild")).ToString();
     }
 
     // Update is called once per frame

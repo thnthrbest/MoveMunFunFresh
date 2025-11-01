@@ -47,6 +47,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Wall/Wall.unity
     guid: c1f549f3dfb52fa438a1a4cfb165d198
+  - enabled: 1
+    path: Assets/Scenes/Main/ChooseMulti.unity
+    guid: 3552fa16a6b1ff241914ee7213e92533
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

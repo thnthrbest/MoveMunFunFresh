@@ -24,6 +24,16 @@ public class DashboardController : MonoBehaviour
 
     [Header("Chart Reference")]
     public BarChart barchart;
+    public string[] partLabels = new string[]
+    {
+        "Upper_Body",
+        "Lower_Body",
+        "Agility",
+        "Flexibility",
+        "Hand-Eye"
+    };
+
+    private bool isChartInitialized = false;
     void Start()
     {
         // Initialize
@@ -31,21 +41,82 @@ public class DashboardController : MonoBehaviour
         {
             part = new int[5];
         }
-        
+
         child_id = PlayerPrefs.GetString("child_id", "Null");
         score = PlayerPrefs.GetInt("Score");
         game_id = PlayerPrefs.GetInt("game_id");
 
         Debug.Log($"Starting with child_id: {child_id}, game_id: {game_id}, score: {score}");
 
+        InitializeChart();
+
         // ⭐ Subscribe to DatePicker event
         if (datePicker != null)
         {
-            datePicker.OnDateChanged.AddListener(RefreshData);
+            datePicker.OnDateChanged.AddListener(RefreshDataWithInvoke);
         }
 
         // โหลดข้อมูลครั้งแรก
         RefreshData();
+    }
+
+    void RefreshDataWithInvoke()
+    {
+        Invoke(nameof(RefreshData), 5f); // รอ 5 วินาที
+    }
+    
+    void InitializeChart()
+    {
+        if (barchart == null)
+        {
+            Debug.LogError("❌ BarChart reference is null!");
+            return;
+        }
+
+        Debug.Log("📊 Initializing chart...");
+
+        // Clear ข้อมูลเก่าทั้งหมด
+        barchart.RemoveData();
+
+        // Setup Chart Components
+        var title = barchart.EnsureChartComponent<Title>();
+        title.text = "กราฟกิจกรรมทางกาย";
+        title.show = true;
+
+        var xAxis = barchart.EnsureChartComponent<XAxis>();
+        xAxis.show = true;
+        xAxis.type = Axis.AxisType.Category;
+
+        var yAxis = barchart.EnsureChartComponent<YAxis>();
+        yAxis.show = true;
+        yAxis.type = Axis.AxisType.Value;
+        yAxis.minMaxType = Axis.AxisMinMaxType.Default;
+
+        var tooltip = barchart.EnsureChartComponent<Tooltip>();
+        tooltip.show = true;
+
+        // เพิ่ม Serie
+        var serie = barchart.AddSerie<Bar>("Parts");
+        serie.barWidth = 0.6f;
+
+        // ⭐ เพิ่ม X-Axis Labels
+        Debug.Log("Adding X-Axis labels:");
+        foreach (string label in partLabels)
+        {
+            barchart.AddXAxisData(label);
+            Debug.Log($"  - {label}");
+        }
+
+        // เพิ่มข้อมูลเริ่มต้น (0 ทั้งหมด)
+        for (int i = 0; i < 5; i++)
+        {
+            barchart.AddData(0, 0);
+        }
+
+        barchart.RefreshChart();
+        isChartInitialized = true;
+
+        Debug.Log("✓ Chart initialized successfully!");
     }
 
     public void RefreshData()
@@ -113,52 +184,44 @@ public class DashboardController : MonoBehaviour
                 }
 
                 Debug.Log("Data parsing completed. Updating chart...");
-
-                // Update chart หลังจาก parse ข้อมูลเสร็จ
-                ChartUpdate();
+                UpdateChartData();
             }
         }
     }
 
-    public void ChartUpdate()
+    void UpdateChartData()
     {
         if (barchart == null)
         {
-            Debug.LogError("BarChart reference is null! Please assign it in Inspector.");
+            Debug.LogError("❌ BarChart reference is null!");
             return;
         }
 
-        Debug.Log("Starting chart update...");
-
-        // ลบข้อมูลเก่า
-        barchart.RemoveData();
-
-        // เพิ่ม serie ถ้ายังไม่มี
-        if (barchart.series.Count == 0)
+        if (!isChartInitialized)
         {
-            Debug.Log("Adding new Bar serie...");
-            barchart.AddSerie<Bar>("BarChart");
+            Debug.LogWarning("Chart not initialized, initializing now...");
+            InitializeChart();
         }
 
-        // เพิ่มข้อมูลทีละตัว
-        Debug.Log("Adding data to chart:");
+        Debug.Log("📊 Updating chart data:");
+
+        // ⭐ ใช้ UpdateData() แทนการสร้างใหม่
         for (int i = 0; i < 5; i++)
         {
-            barchart.AddData(0, part[i]);
-            Debug.Log($"  Data {i}: {part[i]}");
+            barchart.UpdateData(0, i, part[i]);
+            Debug.Log($"  {partLabels[i]}: {part[i]}");
         }
 
-        // Refresh chart
         barchart.RefreshChart();
         Debug.Log("✓ Chart updated successfully!");
     }
-    
+
     void OnDestroy()
     {
-        // ⭐ Unsubscribe เมื่อ destroy
         if (datePicker != null)
         {
             datePicker.OnDateChanged.RemoveListener(RefreshData);
         }
     }
+    
 }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class CountdownTime : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class CountdownTime : MonoBehaviour
     int temp = 0;
     [SerializeField] private uDPReceive uDPReceive;
     [SerializeField] private AudioSource sound_correct;
-    public GameObject o,l;
+    public GameObject o, l;
+
 
     string[] quiz = new string[4] { "5 + 1 = 4 ?", "กล้วยที่สุกมีสีน้ำเงิน  ?", "สุนัขภาษาอังกฤษคือ Dog  ?", "รุ้งกินน้ำมี 7 สี ?" };
     int[] quiz_answer = new int[4] { 1, 1, 0, 0 };
@@ -42,7 +44,16 @@ public class CountdownTime : MonoBehaviour
             yield return null;
         }
 
-        //isRunning = false;
+        if(timeRemaining == 0)
+        {
+            PlayerPrefs.SetString("game_id", "3");
+            for(int i=0;i < 5;i++)
+            {
+                PlayerPrefs.SetInt($"score_{i}", 4);
+            }
+            SceneManager.LoadScene("MultiEndGame");
+        }
+        // isRunning = false;
         Debug.Log("Time's up!");
     }
     int sum_bf= -1;

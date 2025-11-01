@@ -8,36 +8,40 @@ using UnityEngine.Networking;
 using TMPro;
 
 [System.Serializable]
-public class ChildData
+public class ChildDataMulti
 {
     public string child_id;
     public string child_nickname;
 }
 
-public class ChildGridManager : MonoBehaviour
+public class ChildMulti : MonoBehaviour
 {
     [Header("PHP Settings")]
     [Tooltip("URL ของไฟล์ PHP (เช่น http://localhost/choose.php)")]
-    public string phpUrl = "http://localhost/mmff_php/choose.php";
-    
+    public string phpUrl = "http://localhost/mmff/choose.php";
+
     [Tooltip("User ID ที่จะดึงข้อมูล")]
     public string userId = "1";
 
     [Header("UI References")]
     [Tooltip("Prefab ของ Child Card (ต้องมี Image, Text สำหรับชื่อ)")]
     public GameObject childCardPrefab;
-    
+
     [Tooltip("Parent Object ที่จะวาง Card (ควรมี Grid Layout Group)")]
     public Transform gridParent;
-    
+
     [Tooltip("รูปอวาตาร์ทั้งหมด (ต้องเรียงตามลำดับที่ต้องการ)")]
     public Sprite[] avatarSprites;
 
     [Header("Loading")]
     public GameObject loadingPanel;
-    public Text errorText; 
+    public Text errorText;
 
-    private List<ChildData> childrenList = new List<ChildData>();
+    private List<ChildDataMulti> childrenList = new List<ChildDataMulti>();
+
+
+    public int countchild;
+    public string temp1, temp2;
 
     public string game_name;
     void Start()
@@ -100,7 +104,7 @@ public class ChildGridManager : MonoBehaviour
             string[] childInfo = childStr.Split(':');
             if (childInfo.Length >= 2)
             {
-                ChildData child = new ChildData
+                ChildDataMulti child = new ChildDataMulti
                 {
                     child_id = childInfo[0],
                     child_nickname = childInfo[1]
@@ -122,7 +126,7 @@ public class ChildGridManager : MonoBehaviour
 
         for (int i = 0; i < childrenList.Count; i++)
         {
-            ChildData childData = childrenList[i];
+            ChildDataMulti childData = childrenList[i];
             GameObject card = Instantiate(childCardPrefab, gridParent);
 
             Image avatarImage = card.transform.Find("Childprofile")?.GetComponent<Image>();
@@ -142,7 +146,7 @@ public class ChildGridManager : MonoBehaviour
 
             if (cardButton != null)
             {
-                int index = i; 
+                int index = i;
                 cardButton.onClick.AddListener(() => OnChildCardClicked(index));
             }
         }
@@ -151,15 +155,45 @@ public class ChildGridManager : MonoBehaviour
     void OnChildCardClicked(int index)
     {
         if (index < 0 || index >= childrenList.Count) return;
-
-        ChildData selectedChild = childrenList[index];
+        countchild++;
+        ChildDataMulti selectedChild = childrenList[index];
         Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อ: {selectedChild.child_nickname}");
-        
-        PlayerPrefs.SetString("child_id", selectedChild.child_id);
-        PlayerPrefs.SetString("child_nickname", selectedChild.child_nickname);
+        temp1 = selectedChild.child_id;
+        temp2 = selectedChild.child_nickname;
+        if (countchild == 1)
+        {
+            PlayerPrefs.SetString("child_id_1", selectedChild.child_id);
+            PlayerPrefs.SetString("child_nickname_1", selectedChild.child_nickname);
+            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+        }
+        else if (countchild == 2 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
+        {
+            PlayerPrefs.SetString("child_id_2", selectedChild.child_id);
+            PlayerPrefs.SetString("child_nickname_2", selectedChild.child_nickname);
+            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+        }
+        else if (countchild == 3 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
+        {
+            PlayerPrefs.SetString("child_id_3", selectedChild.child_id);
+            PlayerPrefs.SetString("child_nickname_3", selectedChild.child_nickname);
+            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+        }
+        else if (countchild == 4 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
+        {
+            PlayerPrefs.SetString("child_id_4", selectedChild.child_id);
+            PlayerPrefs.SetString("child_nickname_4", selectedChild.child_nickname);
+            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+        }
+        else if(countchild == 5 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
+        {
+            PlayerPrefs.SetString("child_id_5", selectedChild.child_id);
+            PlayerPrefs.SetString("child_nickname_5", selectedChild.child_nickname);
+            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+        }
         PlayerPrefs.SetInt("score", 0);
+        PlayerPrefs.SetInt("CountChild", countchild);
         game_name = PlayerPrefs.GetString("game_name");
-        SceneManager.LoadScene(game_name);
+        if(countchild == 5) SceneManager.LoadScene(game_name);
         PlayerPrefs.Save();
     }
 
@@ -177,14 +211,14 @@ public class ChildGridManager : MonoBehaviour
         LoadChildrenData();
     }
 }
-public class ChildCard : MonoBehaviour
+public class ChildMultiCard : MonoBehaviour
 {
     public Image avatarImage;
     public Text nameText;
     
-    private ChildData childData;
+    private ChildDataMulti childData;
 
-    public void SetData(ChildData data, Sprite avatar)
+    public void SetData(ChildDataMulti data, Sprite avatar)
     {
         childData = data;
         

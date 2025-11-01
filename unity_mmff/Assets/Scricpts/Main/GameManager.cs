@@ -75,11 +75,27 @@ public class GameManager : MonoBehaviour
 
     public void OnSelectedGame()
     {
-        if (game_id == 1) PlayerPrefs.SetString("game_name", "hand_made");
-        else if (game_id == 2) PlayerPrefs.SetString("game_name", "Wall");
-        else if (game_id == 3) PlayerPrefs.SetString("game_name", "main_qa");
-        else if (game_id == 4) PlayerPrefs.SetString("game_name", "Mosquito");
-        SceneManager.LoadScene("ChooseChildScene");
+        if (game_id == 1)
+        {
+            PlayerPrefs.SetString("game_name", "hand_made");
+            SceneManager.LoadScene("ChooseChildScene");
+        }
+        else if (game_id == 2)
+        {
+            PlayerPrefs.SetString("game_name", "Wall");
+            SceneManager.LoadScene("ChooseChildScene");
+        }
+        else if (game_id == 3)
+        {
+            PlayerPrefs.SetString("game_name", "main_qa");
+            SceneManager.LoadScene("ChooseMulti");
+        }
+        else if (game_id == 4) 
+        {
+            PlayerPrefs.SetString("game_name", "Mosquito");
+            SceneManager.LoadScene("ChooseChildScene");
+        }
+        
     }
 
     private void UpdateGameImage()  

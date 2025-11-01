@@ -109,3 +109,11 @@ InitTestScene*.unity*
 /python_handmade/env/
 /python_handmade/venv/
 /python_handmade/.venv/
+
+/python_quizarena/env/
+/python_quizarena/venv/
+/python_quizarena/.venv/
+
+/MyMediapipe/env/
+/MyMediapipe/venv/
+/MyMediapipe/.venv/

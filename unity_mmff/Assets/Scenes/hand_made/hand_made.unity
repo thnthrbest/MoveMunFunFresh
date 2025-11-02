@@ -1025,7 +1025,8 @@ MonoBehaviour:
   printToConsole: 0
   data: 
   same: {fileID: 1520191182}
-  a: []
+  a:
+  - 
 --- !u!114 &987308844
 MonoBehaviour:
   m_ObjectHideFlags: 0

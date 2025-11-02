@@ -27,19 +27,25 @@ public class DatePicker : MonoBehaviour
 
     private DateTime currentMonth;
     private DateTime selectedDate;
+
     private List<Button> dayButtons = new List<Button>();
+
+    private int Clickcount = 0;
 
     void Start()
     {
         currentMonth = DateTime.Now;
         selectedDate = DateTime.Now;
-        
+
         prevMonthButton.onClick.AddListener(PreviousMonth);
         nextMonthButton.onClick.AddListener(NextMonth);
-        
-        datepickerPanel.SetActive(true);
         UpdateCalendar();
         UpdateSelectedDateDisplay();
+    }
+    
+    public void SetActive()
+    {
+        datepickerPanel.SetActive(true);
     }
 
     public void ToggleDatepicker()
@@ -143,6 +149,12 @@ public class DatePicker : MonoBehaviour
 
     void SelectDate(DateTime date)
     {
+        Clickcount++;
+        if(Clickcount >= 2)
+        {
+            datepickerPanel.SetActive(false);
+            Clickcount = 0;
+        } 
         selectedDate = date;
         UpdateSelectedDateDisplay();
         UpdateCalendar();

@@ -15,6 +15,7 @@ public class EndGame : MonoBehaviour
     private string game_id;
     private int score;
 
+    public string[] data;
     void Start()
     {
         child_id = PlayerPrefs.GetString("child_id");
@@ -51,7 +52,7 @@ public class EndGame : MonoBehaviour
 
             Debug.Log("Response: " + www.downloadHandler.text);
 
-            string[] data = www.downloadHandler.text.Split(':');
+            data = www.downloadHandler.text.Split(':');
             if (data.Length != 5)
             {
                 Debug.LogError($"Invalid data. Expected 5 values, got {data.Length}");

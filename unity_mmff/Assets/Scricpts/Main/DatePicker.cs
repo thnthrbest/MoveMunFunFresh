@@ -150,7 +150,11 @@ public class DatePicker : MonoBehaviour
     void SelectDate(DateTime date)
     {
         Clickcount++;
-        if(Clickcount >= 2) datepickerPanel.SetActive(false);
+        if(Clickcount >= 2)
+        {
+            datepickerPanel.SetActive(false);
+            Clickcount = 0;
+        } 
         selectedDate = date;
         UpdateSelectedDateDisplay();
         UpdateCalendar();

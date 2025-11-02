@@ -25,6 +25,9 @@ public class MultiEndGame : MonoBehaviour
     public NumberCounter part4Counter;
     public NumberCounter part5Counter;
 
+    // ✨ เพิ่มตัวนี้เพื่อให้ DialogueMultiEndGame เข้าถึงได้
+    public string[] data;
+
     private string game_id;
     private int totalChildCount;
 
@@ -66,6 +69,9 @@ public class MultiEndGame : MonoBehaviour
         {
             ChildScore highest = GetHighest(allScores);
             ShowCounters(highest);
+            
+            // ✨ เก็บข้อมูลของคนที่คะแนนสูงสุดไว้ใน data array
+            StoreHighestScoreData(highest);
         }
         else
         {
@@ -95,8 +101,8 @@ public class MultiEndGame : MonoBehaviour
             string response = www.downloadHandler.text.Trim();
             Debug.Log($"{child_nickname} response: {response}");
 
-            string[] data = response.Split(':');
-            if (data.Length != 5)
+            string[] responseData = response.Split(':');
+            if (responseData.Length != 5)
             {
                 Debug.LogError($"Invalid data for {child_nickname}");
                 yield break;
@@ -108,7 +114,7 @@ public class MultiEndGame : MonoBehaviour
 
             for (int i = 0; i < 5; i++)
             {
-                if (int.TryParse(data[i], out int value))
+                if (int.TryParse(responseData[i], out int value))
                 {
                     parts[i] = value;
                     total += value;
@@ -179,9 +185,22 @@ public class MultiEndGame : MonoBehaviour
         Debug.Log("✓ Counters updated!");
     }
 
+    // ✨ ฟังก์ชันใหม่: เก็บข้อมูลของคนที่คะแนนสูงสุดไว้ใน data array
+    void StoreHighestScoreData(ChildScore highest)
+    {
+        data = new string[5];
+        data[0] = highest.part1.ToString();
+        data[1] = highest.part2.ToString();
+        data[2] = highest.part3.ToString();
+        data[3] = highest.part4.ToString();
+        data[4] = highest.part5.ToString();
+
+        Debug.Log($"✓ Data stored: {string.Join(", ", data)}");
+    }
+
     public void ChooseAnotherGame()
     {
-        // ล้างข้อมูล
+        // ลบข้อมูล
         PlayerPrefs.DeleteKey("score");
         PlayerPrefs.DeleteKey("game_id");
         PlayerPrefs.DeleteKey("CountChild");

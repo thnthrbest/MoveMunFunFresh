@@ -62,7 +62,7 @@ public class DashboardController : MonoBehaviour
 
     void RefreshDataWithInvoke()
     {
-        Invoke(nameof(RefreshData), 5f); // รอ 5 วินาที
+        Invoke(nameof(RefreshData), 3f); // รอ 3 วินาที
     }
     
     void InitializeChart()

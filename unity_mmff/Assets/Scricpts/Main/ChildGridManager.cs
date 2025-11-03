@@ -20,8 +20,7 @@ public class ChildGridManager : MonoBehaviour
     [Tooltip("URL ของไฟล์ PHP (เช่น http://localhost/choose.php)")]
     public string phpUrl = "http://localhost/mmff_php/choose.php";
     
-    [Tooltip("User ID ที่จะดึงข้อมูล")]
-    public string userId = "1";
+    public string userId;
 
     [Header("UI References")]
     [Tooltip("Prefab ของ Child Card (ต้องมี Image, Text สำหรับชื่อ)")]
@@ -42,6 +41,7 @@ public class ChildGridManager : MonoBehaviour
     public string game_name;
     void Start()
     {
+        userId = PlayerPrefs.GetString("user_id");
         LoadChildrenData();
     }
 
@@ -160,7 +160,6 @@ public class ChildGridManager : MonoBehaviour
         PlayerPrefs.SetInt("score", 0);
         game_name = PlayerPrefs.GetString("game_name");
         SceneManager.LoadScene(game_name);
-        PlayerPrefs.Save();
     }
 
     void ShowError(string message)

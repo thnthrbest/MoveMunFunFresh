@@ -81,7 +81,7 @@ public class MultiEndGame : MonoBehaviour
 
     IEnumerator FetchScore(string child_id, string child_nickname, int score, List<ChildScore> scoreList)
     {
-        string url = "http://localhost/mmff/GetDataPlay.php";
+        string url = "http://localhost/mmff_php/GetDataPlay.php";
         WWWForm form = new WWWForm();
         form.AddField("child_id", child_id);
         form.AddField("game_id", game_id);

@@ -18,10 +18,10 @@ public class ChildMulti : MonoBehaviour
 {
     [Header("PHP Settings")]
     [Tooltip("URL ของไฟล์ PHP (เช่น http://localhost/choose.php)")]
-    public string phpUrl = "http://localhost/mmff/choose.php";
+    public string phpUrl = "http://localhost/mmff_php/choose.php";
 
     [Tooltip("User ID ที่จะดึงข้อมูล")]
-    public string userId = "1";
+    public string userId;
 
     [Header("UI References")]
     [Tooltip("Prefab ของ Child Card (ต้องมี Image, Text สำหรับชื่อ)")]
@@ -48,6 +48,7 @@ public class ChildMulti : MonoBehaviour
     public string game_name;
     void Start()
     {
+        userId = PlayerPrefs.GetString("user_id");
         LoadChildrenData();
         if (button != null)
         {
@@ -199,7 +200,6 @@ public class ChildMulti : MonoBehaviour
         PlayerPrefs.SetInt("score", 0);
         PlayerPrefs.SetInt("CountChild", countchild);
         game_name = PlayerPrefs.GetString("game_name");
-        PlayerPrefs.Save();
     }
 
     void ShowError(string message)

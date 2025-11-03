@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9504cf2c6caa37e46b1e2c503a4ecc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChildGridManager
-  phpUrl: http://localhost/mmff/choose.php
+  phpUrl: http://localhost/mmff_php/choose.php
   userId: 1
   childCardPrefab: {fileID: 8692892413631066200, guid: b9f5ba5b42ba5f34a922d0af02396956, type: 3}
   gridParent: {fileID: 103946844}
@@ -967,7 +967,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 931143987}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999981
+  m_Size: 0.9999954
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1078,7 +1078,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000038146973, y: -0.000013770624}
+  m_AnchoredPosition: {x: 0.0000038146973, y: -0.000012842958}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1332433977

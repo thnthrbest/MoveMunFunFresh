@@ -22,7 +22,7 @@ public class ChildAnalysis : MonoBehaviour
     public string phpUrl = "http://localhost/mmff_php/childdeepdata.php";
 
     [Tooltip("User ID ที่จะดึงข้อมูล")]
-    public string userId = "1";
+    public string userId;
 
     [Header("UI References")]
     [Tooltip("Prefab ของ Child Card (ต้องมี Image, Text สำหรับชื่อ)")]
@@ -42,6 +42,7 @@ public class ChildAnalysis : MonoBehaviour
 
     void Start()
     {
+        userId = PlayerPrefs.GetString("user_id");
         LoadChildrenData();
     }
 

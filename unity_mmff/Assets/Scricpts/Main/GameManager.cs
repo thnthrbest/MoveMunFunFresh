@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SendGameId(int game_id)
     {
-        string url = "http://localhost/mmff/GetDescription.php";
+        string url = "http://localhost/mmff_php/GetDescription.php";
         WWWForm form = new WWWForm();
         form.AddField("game_id", game_id);
 

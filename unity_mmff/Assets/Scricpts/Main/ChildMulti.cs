@@ -43,10 +43,16 @@ public class ChildMulti : MonoBehaviour
     public int countchild;
     public string temp1, temp2;
 
+    public Button button;
+
     public string game_name;
     void Start()
     {
         LoadChildrenData();
+        if (button != null)
+        {
+            button.onClick.AddListener(LoadSceneQuiz);
+        }
     }
 
     public void LoadChildrenData()
@@ -193,7 +199,6 @@ public class ChildMulti : MonoBehaviour
         PlayerPrefs.SetInt("score", 0);
         PlayerPrefs.SetInt("CountChild", countchild);
         game_name = PlayerPrefs.GetString("game_name");
-        if(countchild == 5) SceneManager.LoadScene(game_name);
         PlayerPrefs.Save();
     }
 
@@ -209,6 +214,18 @@ public class ChildMulti : MonoBehaviour
     public void RefreshData()
     {
         LoadChildrenData();
+    }
+    public void LoadSceneQuiz()
+    {
+        SceneManager.LoadScene("main_qa");
+    }
+    void OnDestroy()
+    {
+        // ลบ listener เมื่อ object ถูกทำลาย (ป้องกัน memory leak)
+        if (button != null)
+        {
+            button.onClick.RemoveListener(LoadSceneQuiz);
+        }
     }
 }
 public class ChildMultiCard : MonoBehaviour

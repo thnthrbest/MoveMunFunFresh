@@ -50,6 +50,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main/ChooseMulti.unity
     guid: 3552fa16a6b1ff241914ee7213e92533
+  - enabled: 1
+    path: Assets/Scenes/Main/MultiEndgame.unity
+    guid: 0169bd1eccef67040b21fb3148b8567e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

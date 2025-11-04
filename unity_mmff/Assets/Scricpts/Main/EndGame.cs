@@ -76,7 +76,12 @@ public class EndGame : MonoBehaviour
 
         }
 
-        
+
+    }
+
+    public void ContinueFuck()
+    {
+        SceneManager.LoadScene("ChooseChildScene");
     }
     
     public void ChooseAnotherGame()

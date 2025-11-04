@@ -294,7 +294,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ChooseChildScene
+          m_StringArgument: ChooseGame
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &96641471
@@ -635,7 +635,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 807094143}
         m_TargetAssemblyTypeName: EndGame, Assembly-CSharp
-        m_MethodName: ChooseAnotherGame
+        m_MethodName: ContinueFuck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   game_name: 
   scenes:
-  - sceneName: ChooseChildScene
+  - sceneName: ChooseGame
     description: 
 --- !u!4 &1913766078
 Transform:

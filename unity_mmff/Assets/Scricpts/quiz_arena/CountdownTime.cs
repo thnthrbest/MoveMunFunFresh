@@ -44,7 +44,7 @@ public class CountdownTime : MonoBehaviour
             yield return null;
         }
 
-        if(timeRemaining == 0)
+        if(timeRemaining <= 0)
         {
             PlayerPrefs.SetString("game_id", "3");
             for(int i=0;i < 5;i++)

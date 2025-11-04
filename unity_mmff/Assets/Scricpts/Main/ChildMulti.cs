@@ -40,8 +40,8 @@ public class ChildMulti : MonoBehaviour
     private List<ChildDataMulti> childrenList = new List<ChildDataMulti>();
 
 
-    public int countchild;
-    public string temp1, temp2;
+    public int countchild = 1;
+    public string temp1 = null, temp2 = null;
 
     public Button button;
 
@@ -162,40 +162,53 @@ public class ChildMulti : MonoBehaviour
     void OnChildCardClicked(int index)
     {
         if (index < 0 || index >= childrenList.Count) return;
-        countchild++;
         ChildDataMulti selectedChild = childrenList[index];
         Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อ: {selectedChild.child_nickname}");
-        temp1 = selectedChild.child_id;
-        temp2 = selectedChild.child_nickname;
+        
         if (countchild == 1)
         {
             PlayerPrefs.SetString("child_id_1", selectedChild.child_id);
             PlayerPrefs.SetString("child_nickname_1", selectedChild.child_nickname);
             Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+            temp1 = selectedChild.child_id;
+            temp2 = selectedChild.child_nickname;
+            countchild++;
         }
         else if (countchild == 2 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
         {
             PlayerPrefs.SetString("child_id_2", selectedChild.child_id);
             PlayerPrefs.SetString("child_nickname_2", selectedChild.child_nickname);
             Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+            temp1 = selectedChild.child_id;
+            temp2 = selectedChild.child_nickname;
+            countchild++;
         }
         else if (countchild == 3 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
         {
             PlayerPrefs.SetString("child_id_3", selectedChild.child_id);
             PlayerPrefs.SetString("child_nickname_3", selectedChild.child_nickname);
             Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+            temp1 = selectedChild.child_id;
+            temp2 = selectedChild.child_nickname;
+            countchild++;
         }
         else if (countchild == 4 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
         {
             PlayerPrefs.SetString("child_id_4", selectedChild.child_id);
             PlayerPrefs.SetString("child_nickname_4", selectedChild.child_nickname);
             Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+            temp1 = selectedChild.child_id;
+            temp2 = selectedChild.child_nickname;
+            countchild++;
         }
         else if(countchild == 5 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
         {
             PlayerPrefs.SetString("child_id_5", selectedChild.child_id);
             PlayerPrefs.SetString("child_nickname_5", selectedChild.child_nickname);
             Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
+            temp1 = selectedChild.child_id;
+            temp2 = selectedChild.child_nickname;
+            countchild++;
         }
         PlayerPrefs.SetInt("score", 0);
         PlayerPrefs.SetInt("CountChild", countchild);

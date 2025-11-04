@@ -38,13 +38,13 @@ public class Sendstate : MonoBehaviour
     public IEnumerator sss()
     {
         Debug.Log("Wait for send");
-        yield return new WaitForSeconds(1f);
-        Debug.Log("Wait 3 sec complete");
-        yield return new WaitForSeconds(1f);
-        Debug.Log("Wait 2 sec complete");
         yield return new WaitForSeconds(2f);
+        Debug.Log("Wait 3 sec complete");
+        yield return new WaitForSeconds(2f);
+        Debug.Log("Wait 2 sec complete");
+        yield return new WaitForSeconds(4f);
         Debug.Log("Wait 1 sec complete");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         Debug.Log("Wait 0 sec complete");
         send();
 

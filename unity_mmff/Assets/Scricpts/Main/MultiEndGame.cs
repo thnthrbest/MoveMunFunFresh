@@ -198,6 +198,11 @@ public class MultiEndGame : MonoBehaviour
         Debug.Log($"✓ Data stored: {string.Join(", ", data)}");
     }
 
+    public void ContinueFuck()
+    {
+        SceneManager.LoadScene("ChooseMulti");
+    }
+
     public void ChooseAnotherGame()
     {
         // ลบข้อมูล

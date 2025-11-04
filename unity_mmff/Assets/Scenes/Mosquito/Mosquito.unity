@@ -224,8 +224,8 @@ Transform:
   m_GameObject: {fileID: 192893266}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5243, y: 5.0105, z: 118.1}
-  m_LocalScale: {x: 55.36869, y: 19.992022, z: 1}
+  m_LocalPosition: {x: 4.6103, y: 1.5, z: 118.1}
+  m_LocalScale: {x: 50, y: 14, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
   - {fileID: 7293577162397155527, guid: 9056e29e59bf4d94bbfd1c74ddbfd9e0, type: 3}
   spawnParent: {fileID: 192893270}
   spawnOnStart: 1
-  spawnInterval: 5
+  spawnInterval: 2.5
   manualSpawnKey: 0
   targetToPass: {fileID: 1842627892}
 --- !u!1 &217709120
@@ -700,7 +700,7 @@ MonoBehaviour:
   bonePrefab: {fileID: 1346996947903133400, guid: 5436bff344177014f86264ef879cc936, type: 3}
   boneWidth: 0.5
   gameAreaBounds: {fileID: 230525523}
-  bodyScale: {x: 10, y: 10, z: 0}
+  bodyScale: {x: 15, y: 15, z: 0}
   startingPointOrigin: {fileID: 1564393667}
   currentLandmarks:
     landmarks: []
@@ -3538,7 +3538,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1842627888
 GameObject:

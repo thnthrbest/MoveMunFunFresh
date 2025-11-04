@@ -709,7 +709,7 @@ MonoBehaviour:
   bonePrefab: {fileID: 1346996947903133400, guid: 5436bff344177014f86264ef879cc936, type: 3}
   boneWidth: 0.2
   gameAreaBounds: {fileID: 1222617988}
-  bodyScale: {x: 10, y: 10, z: 0}
+  bodyScale: {x: 8.5, y: 8.5, z: 0}
   startingPointOrigin: {fileID: 218322595}
   currentLandmarks:
     landmarks: []
@@ -2357,7 +2357,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 5, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1222617989
 MeshRenderer:
@@ -2877,6 +2877,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPrefabs:
+  - {fileID: 7308356070155589348, guid: 35978615deacd7740be8a77dc4c223d7, type: 3}
+  - {fileID: 5776376727354448622, guid: a6b140805e6aa5b4f89579dab0dded91, type: 3}
   - {fileID: 2265311585547709091, guid: b93ffa8c0c2f7d74dadf5bcc2c2e64be, type: 3}
   - {fileID: 1932275195871304787, guid: 2541b1523e1ded443bc62e1216fbd4e8, type: 3}
   - {fileID: 4868104494579004390, guid: 98935ed4829dcce48bbf1c2af98b4001, type: 3}

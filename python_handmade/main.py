@@ -37,6 +37,7 @@ BACKGROUND_TYPE = "color"
 BG_COLOR = (0, 0, 0)  # Adjust for Background Color, this use BGR format, Default is black (0,0,0)
 
 animal = ["rabbit","elephent","snail","dog","deer","cow","crab","bird"]
+global random_animal
 random_animal = ""
 random_animal_bf = None
 
@@ -53,7 +54,7 @@ serverAddressPort = ("127.0.0.1", 5054) # Send result ai
 #<---- function : Thread---->
 
 def ReciveValue():
-    global detect, thres,model_shadow , random_animal_bf 
+    global detect, thres,model_shadow , random_animal_bf ,random_animal
     sock_unity_revice = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock_unity_revice.bind(("127.0.0.1", 5051)) # Recive Value form unity (start anything)
     print(f"Listening on Unity :ReciveValue")
@@ -67,12 +68,13 @@ def ReciveValue():
         print("Received message:", data)
         if data == "True":
             random_animal = random.choice(animal)
-            while random_animal == random_animal_bf:
+            while(True):
+                if random_animal != random_animal_bf:
+                    break
                 random_animal = random.choice(animal)
-                
             random_animal_bf = random_animal
             print(random_animal)
-            model_path = f"D:/MoveMunFunFresh/python_handmade/model/{random_animal}.pt" # Edit path
+            model_path = f"D:/GitHub/MoveMunFunFresh/python_handmade/model/{random_animal}.pt" # Edit path
             try:
                 model_shadow = YOLO(model_path)
             except Exception as e:
@@ -114,7 +116,6 @@ client_socket, client_address = sockImg.accept()
 print(f"Connected to {client_address}")
 unity_recive_state_thread = threading.Thread(target=ReciveValue)
 unity_recive_state_thread.start()
-
 while True:
      
         #<---- img ---->
@@ -217,11 +218,12 @@ while True:
     if detect:
         print(NowRun)
         try:
-
             results_shadow = model_shadow(output, show=False) # YOLO Detection models 
+            detected = False  # ตัวแปรเช็คว่ามีการ detect หรือไม่
+            
             for shadow_result in results_shadow:
                 shadow_boxes = shadow_result.boxes
-                if shadow_boxes is not None:
+                if shadow_boxes is not None and len(shadow_boxes) > 0:
                     for shadow_box in shadow_boxes:
                         # Bounding box coordinates
                         x1s, y1s, x2s, y2s = map(int, shadow_box.xyxy[0].tolist())
@@ -231,8 +233,14 @@ while True:
                         cls_s = int(shadow_box.cls[0])
                         
                         # Label
-                        label_text = f"{model_shadow.names[cls_s]} {conf_s:.2f}"
+                        label_text = f"{random_animal} {conf_s:.2f}"
                         sock.sendto(str.encode(label_text), serverAddressPort)
+                        detected = True
+            
+            # ถ้าไม่มีการ detect ให้ส่งค่าด้วย confidence 0.00
+            if not detected:
+                label_text = f"{random_animal} 0.00"
+                sock.sendto(str.encode(label_text), serverAddressPort)
                         
         except Exception as e:
             print(f"Shadow detection error: {e}")

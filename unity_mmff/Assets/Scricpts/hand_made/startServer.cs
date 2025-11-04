@@ -18,12 +18,15 @@ public class startServer : MonoBehaviour
     [SerializeField] private UDPReceive UDPReceive;
     [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private AudioSource sound_correct;
+    [SerializeField] private AudioSource sound_incorrect;
     [SerializeField] private AudioSource sound_countdown;
     public RawImage loading;
     public RawImage correct;
+    public RawImage incorrect;
     public RawImage[] images = new RawImage[4];
 
-    int temp=0;
+    int temp = 0;
+    
 
     IEnumerator StartServer()
     {
@@ -71,14 +74,20 @@ public class startServer : MonoBehaviour
             yield return new WaitForSeconds(1f);
             StartCoroutine(manange.change_img(UDPReceive.a[0]));
             yield return new WaitForSeconds(value);
-            UnityEngine.Debug.Log("score :" + temp + " value :"+value);
-            temp++;
-            score.text = temp.ToString();
-            PlayerPrefs.SetInt("score", temp);
-            correct.gameObject.SetActive(true);
-            sound_correct.Play();
+            if (UDPReceive.aws == true){
+                temp++;
+                score.text = temp.ToString();
+                PlayerPrefs.SetInt("score", temp);
+                correct.gameObject.SetActive(true);
+                sound_correct.Play();
+            }else{
+                incorrect.gameObject.SetActive(true);
+                sound_incorrect.Play();
+            }
             yield return new WaitForSeconds(1f);
             correct.gameObject.SetActive(false);
+            incorrect.gameObject.SetActive(false);
+            UDPReceive.aws = false;
         }
     }
     public void ServerStart()

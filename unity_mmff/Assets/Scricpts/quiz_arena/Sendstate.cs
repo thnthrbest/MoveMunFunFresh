@@ -44,7 +44,7 @@ public class Sendstate : MonoBehaviour
         Debug.Log("Wait 2 sec complete");
         yield return new WaitForSeconds(2f);
         Debug.Log("Wait 1 sec complete");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         Debug.Log("Wait 0 sec complete");
         send();
 

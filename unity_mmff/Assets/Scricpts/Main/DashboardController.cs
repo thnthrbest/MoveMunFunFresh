@@ -15,12 +15,19 @@ public class DashboardController : MonoBehaviour
     private string child_id;
     private int score, game_id;
 
+    [Header("Child Info UI")]
+    public TextMeshProUGUI childNameText;
+    public TextMeshProUGUI childNicknameText;
+    public TextMeshProUGUI childWeightText;
+    public TextMeshProUGUI childHeightText;
+    public TextMeshProUGUI childAgeText;
+
     [Header("DatePicker Reference")]
-    public DatePicker datePicker;  // ⭐ เพิ่ม Reference
+    public DatePicker datePicker;
     
     [Header("Data Arrays")]
-    public string[] posReturn; // ไม่ต้อง initialize
-    public int[] part = new int[5]; // ต้อง initialize ให้มี 5 ช่อง
+    public string[] posReturn;
+    public int[] part = new int[5];
 
     [Header("Chart Reference")]
     public BarChart barchart;
@@ -34,6 +41,7 @@ public class DashboardController : MonoBehaviour
     };
 
     private bool isChartInitialized = false;
+
     void Start()
     {
         // Initialize
@@ -48,21 +56,40 @@ public class DashboardController : MonoBehaviour
 
         Debug.Log($"Starting with child_id: {child_id}, game_id: {game_id}, score: {score}");
 
+        // ⭐ รีเซ็ตวันที่เป็นวันนี้ทุกครั้งที่เข้า Dashboard
+        ResetDateToToday();
+
         InitializeChart();
 
-        // ⭐ Subscribe to DatePicker event
+        // Subscribe to DatePicker event
         if (datePicker != null)
         {
             datePicker.OnDateChanged.AddListener(RefreshDataWithInvoke);
         }
 
-        // โหลดข้อมูลครั้งแรก
+        // โหลดข้อมูลเด็กและข้อมูลกิจกรรม
+        LoadChildInfo();
         RefreshData();
+    }
+
+    void ResetDateToToday()
+    {
+        string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
+        PlayerPrefs.SetString("selected_date", todayDate);
+        PlayerPrefs.Save();
+        
+        // อัปเดต DatePicker UI ให้แสดงวันนี้
+        if (datePicker != null)
+        {
+            datePicker.SetDate(DateTime.Now);
+        }
+        
+        Debug.Log("✓ Date reset to today: " + todayDate);
     }
 
     void RefreshDataWithInvoke()
     {
-        Invoke(nameof(RefreshData), 3f); // รอ 3 วินาที
+        Invoke(nameof(RefreshData), 3f);
     }
     
     void InitializeChart()
@@ -75,10 +102,8 @@ public class DashboardController : MonoBehaviour
 
         Debug.Log("📊 Initializing chart...");
 
-        // Clear ข้อมูลเก่าทั้งหมด
         barchart.RemoveData();
 
-        // Setup Chart Components
         var title = barchart.EnsureChartComponent<Title>();
         title.text = "กราฟกิจกรรมทางกาย";
         title.show = true;
@@ -95,11 +120,9 @@ public class DashboardController : MonoBehaviour
         var tooltip = barchart.EnsureChartComponent<Tooltip>();
         tooltip.show = true;
 
-        // เพิ่ม Serie
         var serie = barchart.AddSerie<Bar>("Parts");
         serie.barWidth = 0.6f;
 
-        // ⭐ เพิ่ม X-Axis Labels
         Debug.Log("Adding X-Axis labels:");
         foreach (string label in partLabels)
         {
@@ -107,7 +130,6 @@ public class DashboardController : MonoBehaviour
             Debug.Log($"  - {label}");
         }
 
-        // เพิ่มข้อมูลเริ่มต้น (0 ทั้งหมด)
         for (int i = 0; i < 5; i++)
         {
             barchart.AddData(0, 0);
@@ -119,10 +141,74 @@ public class DashboardController : MonoBehaviour
         Debug.Log("✓ Chart initialized successfully!");
     }
 
+    // ⭐ ฟังก์ชันใหม่: โหลดข้อมูลเด็ก
+    public void LoadChildInfo()
+    {
+        StartCoroutine(GetChildInfo());
+    }
+
+    IEnumerator GetChildInfo()
+    {
+        string url = "http://localhost/mmff_php/childinformation.php";
+        WWWForm form = new WWWForm();
+        form.AddField("child_id", child_id);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError("Error fetching child info: " + www.error);
+                yield break;
+            }
+            else
+            {
+                string response = www.downloadHandler.text.Trim();
+                Debug.Log("Child Info Response: " + response);
+
+                if (response == "0")
+                {
+                    Debug.LogWarning("No child data found!");
+                    yield break;
+                }
+
+                // แยกข้อมูล: name:nickname:weight:height:age
+                string[] childData = response.Split(':');
+
+                if (childData.Length >= 5)
+                {
+                    // แสดงข้อมูลบน UI
+                    if (childNameText != null)
+                        childNameText.text = $"ชื่อ: {childData[1]}";
+
+                    if (childNicknameText != null)
+                        childNicknameText.text = $"ชื่อเล่น: {childData[2]}";
+
+                    if (childWeightText != null)
+                        childWeightText.text = $"น้ำหนัก: {childData[3]} kg";
+
+                    if (childHeightText != null)
+                        childHeightText.text = $"ส่วนสูง: {childData[4]} cm";
+
+                    if (childAgeText != null)
+                        childAgeText.text = $"อายุ: {childData[5]} ปี";
+
+                    Debug.Log("✓ Child info displayed successfully!");
+                }
+                else
+                {
+                    Debug.LogError("Invalid child data format!");
+                }
+            }
+        }
+    }
+
     public void RefreshData()
     {
         StartCoroutine(GetDataPlay());
     }
+
     public IEnumerator GetDataPlay()
     {
         string url = "http://localhost/mmff_php/GetDataPlay.php";
@@ -131,7 +217,6 @@ public class DashboardController : MonoBehaviour
         form.AddField("game_id", game_id);
         form.AddField("score", score);
 
-        // ✨ เพิ่มการส่งวันที่จาก DatePicker
         string selectedDate = PlayerPrefs.GetString("selected_date", DateTime.Now.ToString("yyyy-MM-dd"));
         form.AddField("play_date", selectedDate);
         Debug.Log("Sending date: " + selectedDate);
@@ -149,22 +234,19 @@ public class DashboardController : MonoBehaviour
                 string response = www.downloadHandler.text.Trim();
                 Debug.Log("Response received: " + response);
 
-                // แยกข้อมูลด้วย :
                 posReturn = response.Split(':');
                 Debug.Log("Split into " + posReturn.Length + " parts");
 
-                // แสดงข้อมูลที่แยกได้
                 for (int i = 0; i < posReturn.Length; i++)
                 {
                     Debug.Log($"posReturn[{i}] = '{posReturn[i]}'");
                 }
 
-                // Parse ข้อมูลอย่างปลอดภัย
                 for (int i = 0; i < 5; i++)
                 {
-                    if (i < posReturn.Length) // เช็คว่า index ไม่เกิน
+                    if (i < posReturn.Length)
                     {
-                        string valueStr = posReturn[i].Trim(); // ลบช่องว่าง
+                        string valueStr = posReturn[i].Trim();
                         if (int.TryParse(valueStr, out int value))
                         {
                             part[i] = value;
@@ -205,7 +287,6 @@ public class DashboardController : MonoBehaviour
 
         Debug.Log("📊 Updating chart data:");
 
-        // ⭐ ใช้ UpdateData() แทนการสร้างใหม่
         for (int i = 0; i < 5; i++)
         {
             barchart.UpdateData(0, i, part[i]);
@@ -223,5 +304,4 @@ public class DashboardController : MonoBehaviour
             datePicker.OnDateChanged.RemoveListener(RefreshData);
         }
     }
-    
 }

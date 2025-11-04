@@ -536,7 +536,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 953403681}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.999998
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1165,7 +1165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd15299fcffdbb48bab69b7b2f5200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChildAnalysis
-  phpUrl: http://localhost/mmff_php/choose.php
+  phpUrl: http://localhost/mmff_php/childdeepdata.php
   userId: 1
   childCardPrefab: {fileID: 8692892413631066200, guid: b9f5ba5b42ba5f34a922d0af02396956, type: 3}
   gridParent: {fileID: 1637107393}
@@ -1778,7 +1778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000009919063}
+  m_AnchoredPosition: {x: 0, y: 0.000466521}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1888987502

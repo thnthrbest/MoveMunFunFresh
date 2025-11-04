@@ -11,7 +11,11 @@ using UnityEngine.SceneManagement;
 public class ChildAnalysisData
 {
     public string child_id;
+    public string child_name;        
     public string child_nickname;
+    public float child_weight;       
+    public float child_height;       
+    public int child_age;
 }
 
 public class ChildAnalysis : MonoBehaviour
@@ -36,7 +40,7 @@ public class ChildAnalysis : MonoBehaviour
 
     [Header("Loading")]
     public GameObject loadingPanel;
-    public Text errorText; // เพิ่มตัวแปรที่ขาดหาย
+    public Text errorText;
 
     private List<ChildAnalysisData> childrenList = new List<ChildAnalysisData>();
 
@@ -100,25 +104,31 @@ public class ChildAnalysis : MonoBehaviour
             if (string.IsNullOrEmpty(childStr)) continue;
             string[] childInfo = childStr.Split(':');
             
-            // ต้องมีอย่างน้อย 6 ฟิลด์ (id, name, nickname, weight, height, age)
-            if (childInfo.Length >= 2)
+            // ✅ ต้องมี 6 ฟิลด์: id:name:nickname:weight:height:age
+            if (childInfo.Length >= 6)
             {
                 ChildAnalysisData child = new ChildAnalysisData
                 {
                     child_id = childInfo[0],
-                    child_nickname = childInfo[1],
+                    child_name = childInfo[1],
+                    child_nickname = childInfo[2]
                 };
 
+                // Parse weight, height, age อย่างปลอดภัย
+                float.TryParse(childInfo[3], out child.child_weight);
+                float.TryParse(childInfo[4], out child.child_height);
+                int.TryParse(childInfo[5], out child.child_age);
+
                 childrenList.Add(child);
-                Debug.Log($"เพิ่มเด็ก: {child.child_nickname})");
+                Debug.Log($"✓ เพิ่มเด็ก: {child.child_name} ({child.child_nickname}) - {child.child_age}ปี, {child.child_weight}kg, {child.child_height}cm");
             }
             else
             {
-                Debug.LogWarning($"ข้อมูลไม่ครบ: {childStr} (มี {childInfo.Length} ฟิลด์)");
+                Debug.LogWarning($"❌ ข้อมูลไม่ครบ: {childStr} (มี {childInfo.Length} ฟิลด์, ต้องการ 6)");
             }
         }
 
-        Debug.Log($"โหลดข้อมูลเด็ก {childrenList.Count} คน");
+        Debug.Log($"📋 โหลดข้อมูลเด็ก {childrenList.Count} คน");
     }
 
     void CreateChildCards()
@@ -166,9 +176,19 @@ public class ChildAnalysis : MonoBehaviour
         if (index < 0 || index >= childrenList.Count) return;
 
         ChildAnalysisData selectedChild = childrenList[index];
-        Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อ: {selectedChild.child_nickname}");
+        
+        // ✅ บันทึกข้อมูลครบถ้วน
         PlayerPrefs.SetString("child_id", selectedChild.child_id);
+        PlayerPrefs.SetString("child_name", selectedChild.child_name);
         PlayerPrefs.SetString("child_nickname", selectedChild.child_nickname);
+        PlayerPrefs.SetFloat("child_weight", selectedChild.child_weight);
+        PlayerPrefs.SetFloat("child_height", selectedChild.child_height);
+        PlayerPrefs.SetInt("child_age", selectedChild.child_age);
+        PlayerPrefs.Save();
+        
+        Debug.Log($"✅ เลือกเด็ก: {selectedChild.child_name} ({selectedChild.child_nickname})");
+        Debug.Log($"   อายุ: {selectedChild.child_age} ปี | น้ำหนัก: {selectedChild.child_weight} kg | ส่วนสูง: {selectedChild.child_height} cm");
+        
         SceneManager.LoadScene("DashBoard");
     }
 
@@ -187,6 +207,7 @@ public class ChildAnalysis : MonoBehaviour
         LoadChildrenData();
     }
 }
+
 public class ChildAnalysisCard : MonoBehaviour
 {
     public Image avatarImage;
@@ -206,6 +227,16 @@ public class ChildAnalysisCard : MonoBehaviour
 
         if (nameText != null)
             nameText.text = data.child_nickname;
+            
+        // ✅ เพิ่มการแสดงข้อมูลเพิ่มเติม (ถ้ามี UI elements)
+        if (ageText != null)
+            ageText.text = $"{data.child_age} ปี";
+            
+        if (weightText != null)
+            weightText.text = $"{data.child_weight} kg";
+            
+        if (heightText != null)
+            heightText.text = $"{data.child_height} cm";
     }
 
     public void OnCardClicked()

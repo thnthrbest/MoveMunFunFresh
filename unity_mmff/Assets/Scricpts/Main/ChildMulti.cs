@@ -38,10 +38,8 @@ public class ChildMulti : MonoBehaviour
     public Text errorText;
 
     private List<ChildDataMulti> childrenList = new List<ChildDataMulti>();
-
-
     public int countchild = 1;
-    public string temp1 = null, temp2 = null;
+    private HashSet<string> selectedChildIds = new HashSet<string>();
 
     public Button button;
 
@@ -49,11 +47,30 @@ public class ChildMulti : MonoBehaviour
     void Start()
     {
         userId = PlayerPrefs.GetString("user_id");
+
+        // ✅ รีเซ็ตข้อมูลเด็กที่เลือกเมื่อเริ่มใหม่
+        ClearPreviousSelections();
+
         LoadChildrenData();
         if (button != null)
         {
             button.onClick.AddListener(LoadSceneQuiz);
         }
+    }
+
+    void ClearPreviousSelections()
+    {
+        selectedChildIds.Clear();
+        countchild = 1;
+        
+        // ลบ PlayerPrefs ของเด็กทุกคน
+        for (int i = 1; i <= 5; i++)
+        {
+            PlayerPrefs.DeleteKey($"child_id_{i}");
+            PlayerPrefs.DeleteKey($"child_nickname_{i}");
+        }
+        PlayerPrefs.SetInt("CountChild", 0);
+        PlayerPrefs.Save();
     }
 
     public void LoadChildrenData()
@@ -163,56 +180,39 @@ public class ChildMulti : MonoBehaviour
     {
         if (index < 0 || index >= childrenList.Count) return;
         ChildDataMulti selectedChild = childrenList[index];
-        Debug.Log($"เลือกเด็ก ID: {selectedChild.child_id}, ชื่อ: {selectedChild.child_nickname}");
         
-        if (countchild == 1)
+        // ✅ เช็คว่าเด็กคนนี้ถูกเลือกไปแล้วหรือยัง
+        if (selectedChildIds.Contains(selectedChild.child_id))
         {
-            PlayerPrefs.SetString("child_id_1", selectedChild.child_id);
-            PlayerPrefs.SetString("child_nickname_1", selectedChild.child_nickname);
-            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
-            temp1 = selectedChild.child_id;
-            temp2 = selectedChild.child_nickname;
-            countchild++;
+            Debug.LogWarning($"❌ เด็กคนนี้ถูกเลือกแล้ว: {selectedChild.child_nickname}");
+            ShowError($"คุณเลือก {selectedChild.child_nickname} ไปแล้ว กรุณาเลือกเด็กคนอื่น");
+            return;
         }
-        else if (countchild == 2 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
+
+        // ✅ เช็คว่าเลือกครบ 5 คนแล้วหรือยัง
+        if (countchild > 5)
         {
-            PlayerPrefs.SetString("child_id_2", selectedChild.child_id);
-            PlayerPrefs.SetString("child_nickname_2", selectedChild.child_nickname);
-            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
-            temp1 = selectedChild.child_id;
-            temp2 = selectedChild.child_nickname;
-            countchild++;
+            Debug.LogWarning("❌ เลือกเด็กครบ 5 คนแล้ว");
+            ShowError("คุณเลือกเด็กครบ 5 คนแล้ว");
+            return;
         }
-        else if (countchild == 3 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
-        {
-            PlayerPrefs.SetString("child_id_3", selectedChild.child_id);
-            PlayerPrefs.SetString("child_nickname_3", selectedChild.child_nickname);
-            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
-            temp1 = selectedChild.child_id;
-            temp2 = selectedChild.child_nickname;
-            countchild++;
-        }
-        else if (countchild == 4 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
-        {
-            PlayerPrefs.SetString("child_id_4", selectedChild.child_id);
-            PlayerPrefs.SetString("child_nickname_4", selectedChild.child_nickname);
-            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
-            temp1 = selectedChild.child_id;
-            temp2 = selectedChild.child_nickname;
-            countchild++;
-        }
-        else if(countchild == 5 && (temp1 != selectedChild.child_id && temp2 != selectedChild.child_nickname))
-        {
-            PlayerPrefs.SetString("child_id_5", selectedChild.child_id);
-            PlayerPrefs.SetString("child_nickname_5", selectedChild.child_nickname);
-            Debug.Log(selectedChild.child_id + " " + selectedChild.child_nickname);
-            temp1 = selectedChild.child_id;
-            temp2 = selectedChild.child_nickname;
-            countchild++;
-        }
+
+        // ✅ บันทึกข้อมูล
+        selectedChildIds.Add(selectedChild.child_id);
+        PlayerPrefs.SetString($"child_id_{countchild}", selectedChild.child_id);
+        PlayerPrefs.SetString($"child_nickname_{countchild}", selectedChild.child_nickname);
+        
+        Debug.Log($"✅ เลือกเด็กคนที่ {countchild}: {selectedChild.child_nickname} (ID: {selectedChild.child_id})");
+        
+        countchild++;
+        PlayerPrefs.SetInt("CountChild", countchild - 1); // บันทึกจำนวนเด็กที่เลือกจริง
         PlayerPrefs.SetInt("score", 0);
-        PlayerPrefs.SetInt("CountChild", countchild);
+        PlayerPrefs.Save();
+        
         game_name = PlayerPrefs.GetString("game_name");
+        
+        // แสดงข้อมูลเด็กที่เลือกทั้งหมด
+        Debug.Log($"📋 เด็กที่เลือกทั้งหมด ({selectedChildIds.Count} คน): {string.Join(", ", selectedChildIds)}");
     }
 
     void ShowError(string message)
@@ -230,6 +230,13 @@ public class ChildMulti : MonoBehaviour
     }
     public void LoadSceneQuiz()
     {
+        // ✅ เช็คว่าเลือกเด็กอย่างน้อย 1 คนหรือยัง
+        if (countchild <= 1)
+        {
+            ShowError("กรุณาเลือกเด็กอย่างน้อย 1 คน");
+            return;
+        }
+        
         SceneManager.LoadScene("main_qa");
     }
     void OnDestroy()

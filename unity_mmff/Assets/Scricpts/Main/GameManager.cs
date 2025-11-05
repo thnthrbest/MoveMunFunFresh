@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public int game_id = 1;
     void Start()
     {
+        PlayerPrefs.SetString("game_id", null);
+        PlayerPrefs.SetString("child_id", null);
         game_id = Currentindex + 1;
         if (GameImages.Count > 0)
         {

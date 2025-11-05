@@ -25,7 +25,6 @@ public class SceneLoader : MonoBehaviour
             Debug.LogError("No Scene Name");
             return;
         }
-
         SceneManager.LoadScene(sceneName);
     }
 

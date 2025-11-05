@@ -13,11 +13,10 @@ public class StartServer : MonoBehaviour
     {
 
         StartCoroutine(StartUP());
-
     }
 
     IEnumerator StartUP(){ //ใช้สำหรับหน่วงเวลา
-        Process.Start("C:/Users/comsc/Documents/GitHub/MoveMunFunFresh/MyMediapipe/run.bat");
+        Process.Start("D:/MoveMunFunFresh/MyMediapipe/run.bat");
         yield return new WaitForSeconds(8);
         dec.enabled = true;
         yield return new WaitForSeconds(2);

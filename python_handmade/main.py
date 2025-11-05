@@ -74,7 +74,7 @@ def ReciveValue():
                 random_animal = random.choice(animal)
             random_animal_bf = random_animal
             print(random_animal)
-            model_path = f"D:/GitHub/MoveMunFunFresh/python_handmade/model/{random_animal}.pt" # Edit path
+            model_path = f"D:/MoveMunFunFresh/python_handmade/model/{random_animal}.pt" # Edit path
             try:
                 model_shadow = YOLO(model_path)
             except Exception as e:

@@ -1441,9 +1441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Startserver
   CanStart: 1
-  ScriptFolder: D:/GitHub/MoveMunFunFresh/python_quizarena/sever/
+  ScriptFolder: D:/MoveMunFunFresh/python_quizarena/sever/
   ScriptName: start_main_bat
-  delayForStartServer: 4
+  delayForStartServer: 10
   sendstate: {fileID: 965833482}
 --- !u!114 &965833484
 MonoBehaviour:
@@ -1640,7 +1640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!328 &1214919694
 VideoPlayer:
   m_ObjectHideFlags: 0

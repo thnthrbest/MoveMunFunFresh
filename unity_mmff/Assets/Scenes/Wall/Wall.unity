@@ -710,7 +710,7 @@ MonoBehaviour:
   bonePrefab: {fileID: 1346996947903133400, guid: 2b89ef5d3cbe70c4ba4d081b5e2e2068, type: 3}
   boneWidth: 0.2
   gameAreaBounds: {fileID: 1222617988}
-  bodyScale: {x: 8.5, y: 8.5, z: 0}
+  bodyScale: {x: 8, y: 8, z: 0}
   startingPointOrigin: {fileID: 218322595}
   currentLandmarks:
     landmarks: []

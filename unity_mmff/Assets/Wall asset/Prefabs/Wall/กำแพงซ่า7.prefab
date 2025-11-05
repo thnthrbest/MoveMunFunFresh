@@ -48,7 +48,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -66,8 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &481261651558503281
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &1992072708260520563
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -202,8 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &2896417878004543567
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -323,8 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &4855443028577477437
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +373,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -391,8 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &5534028797243410706
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -459,8 +459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &5632501582688968577
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +509,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -527,8 +527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &6393154202667526259
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +577,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -595,8 +595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &6564840934076696831
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +645,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -663,8 +663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &6955808758427119404
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +766,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -784,8 +784,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1 &9180257524062143048
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +834,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -852,8 +852,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a9fcdd6df8a29846827809400c9b074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateSwitcher
-  pointObject: {fileID: 0}
-  damageObject: {fileID: 0}
+  pointObject: {fileID: 2896417878004543567}
+  damageObject: {fileID: 6955808758427119404}
 --- !u!1001 &7614767619941116853
 PrefabInstance:
   m_ObjectHideFlags: 0

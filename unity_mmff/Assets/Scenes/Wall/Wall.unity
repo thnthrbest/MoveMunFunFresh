@@ -704,13 +704,13 @@ MonoBehaviour:
   serverAddress: 127.0.0.1
   serverPort: 7052
   rawImage: {fileID: 1130909892}
-  pointPrefab: {fileID: 1078023304652942306, guid: ff8caa2509c6d914586e3f97d9a7f0dd, type: 3}
-  nosePrefab: {fileID: 1130410810385095500, guid: eb43c0132ede687458d84e25bf63ad8b, type: 3}
-  handPrefab: {fileID: 1078023304652942306, guid: ff8caa2509c6d914586e3f97d9a7f0dd, type: 3}
-  bonePrefab: {fileID: 1346996947903133400, guid: 5436bff344177014f86264ef879cc936, type: 3}
+  pointPrefab: {fileID: 1078023304652942306, guid: 16291067f55e3144287af71f2c0182cc, type: 3}
+  nosePrefab: {fileID: 1130410810385095500, guid: 1417fabbf6534944695a7b30cca675d4, type: 3}
+  handPrefab: {fileID: 1078023304652942306, guid: 16291067f55e3144287af71f2c0182cc, type: 3}
+  bonePrefab: {fileID: 1346996947903133400, guid: 2b89ef5d3cbe70c4ba4d081b5e2e2068, type: 3}
   boneWidth: 0.2
   gameAreaBounds: {fileID: 1222617988}
-  bodyScale: {x: 8.5, y: 8.5, z: 0}
+  bodyScale: {x: 8, y: 8, z: 0}
   startingPointOrigin: {fileID: 218322595}
   currentLandmarks:
     landmarks: []

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Net.Sockets;
 using System.IO;
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 
 // (LandmarkData และ LandmarkList เหมือนเดิม)
 [System.Serializable]
@@ -24,7 +24,7 @@ public class DecSeen : MonoBehaviour
     public GameObject pointPrefab;
     public GameObject nosePrefab;
     public GameObject handPrefab;
-    public GameObject bonePrefab; 
+    public GameObject bonePrefab;
     public float boneWidth = 0.05f;
 
     [Header("Game World Settings")]
@@ -37,13 +37,13 @@ public class DecSeen : MonoBehaviour
     [Header("Starting Point")]
     [Tooltip("จุด Parent ของข้อต่อทั้งหมด (จะใช้เป็น 'ศูนย์กลาง' ที่ไม่ขยับ)")]
     public Transform startingPointOrigin; // "ศูนย์กลาง"
-    
+
     // (ตัวแปรภายใน)
-    private Vector3 actualGameSize; 
+    private Vector3 actualGameSize;
 
     [Header("Live Data")]
     public LandmarkList currentLandmarks;
-    
+
     // (ตัวแปรจัดการจุดและเส้น)
     private Dictionary<int, GameObject> points = new Dictionary<int, GameObject>();
     private const int NOSE_ID = 0;
@@ -53,7 +53,7 @@ public class DecSeen : MonoBehaviour
     private const int RIGHT_HIP_ID = 24;
     private class BoneLink { public GameObject boneObject; public int id1; public int id2; }
     private List<BoneLink> bones = new List<BoneLink>();
-    private readonly (int, int)[] boneConnections = 
+    private readonly (int, int)[] boneConnections =
     {
         (11, 12), (12, 24), (24, 23), (23, 11), // Torso
         (11, 13), (13, 15), // Left Arm
@@ -61,7 +61,7 @@ public class DecSeen : MonoBehaviour
         (23, 25), (25, 27), (27, 31), // Left Leg
         (24, 26), (26, 28), (28, 32)  // Right Leg
     };
-    
+
     // (ตัวแปร Network และ Webcam)
     private WebCamTexture webcamTexture;
     private TcpClient client;
@@ -71,67 +71,84 @@ public class DecSeen : MonoBehaviour
     private Texture2D frame;
     private Texture2D processedTexture;
     private bool isReady = false;
-    
-    
+
+
     // ... (โค้ดอื่นๆ ในไฟล์ DecSeen.cs) ...
 
-void Start()
-{
-    // ... (โค้ดอื่นๆ ใน Start() ที่อาจจะอยู่ก่อนหน้า) ...
-
-    // 1. ค้นหากล้อง
-    WebCamDevice[] devices = WebCamTexture.devices;
-
-    // ⭐️⭐️⭐️ 2. เพิ่มโค้ด "กันพัง" ตรงนี้! ⭐️⭐️⭐️
-    if (devices.Length == 0) 
+    void Start()
     {
-        Debug.LogError("!!! [DecSeen.cs] ไม่พบเว็บแคม!");
-        Debug.LogError("กรุณาตรวจสอบว่าเสียบกล้องและเปิดใช้งานเรียบร้อยแล้ว");
-        
-        this.enabled = false; // ปิดสคริปต์นี้ไปเลย
-        return; // 👈 ออกจากฟังก์ชัน Start() ทันที (ไม่ไปทำบรรทัดที่ 99)
+        // (1. ตรวจสอบ BoxCollider)
+        if (gameAreaBounds == null)
+        {
+            Debug.LogError("!!! [DecSeen.cs] Error: 'Game Area Bounds' (BoxCollider) ยังไม่ได้ลากมาใส่!");
+            this.enabled = false;
+            return;
+        }
+
+        // ⭐️ (A) อ่านค่า
+        actualGameSize = gameAreaBounds.size;
+
+        // ⭐️ (B) พิมพ์ค่าออกมาดู!
+        Debug.Log("!!! [DecSeen] อ่านค่า BoxCollider Size ได้: " + actualGameSize);
+        Debug.Log("!!! [DecSeen] ค่า X คือ: " + actualGameSize.x); // (พิมพ์ X แยกให้ดู)
+
+
+        // (2. ตรวจสอบ Starting Point)
+        if (startingPointOrigin == null)
+        {
+            Debug.LogWarning("[DecSeen.cs] 'Starting Point Origin' ไม่ได้ตั้งค่า, จะใช้ GameObject นี้เป็น Center แทน");
+            startingPointOrigin = this.transform;
+        }
+
+        // (3. ตรวจสอบเว็บแคม)
+        WebCamDevice[] devices = WebCamTexture.devices;
+        if (devices.Length == 0)
+        {
+            Debug.LogError("!!! [DecSeen.cs] ไม่พบเว็บแคม!");
+            this.enabled = false;
+            return;
+        }
+
+        // (4. ส่วนที่เหลือของ Start() - ปลอดภัยแล้ว)
+        webcamTexture = new WebCamTexture(devices[0].name, 640, 480, 30);
+        processedTexture = new Texture2D(2, 2);
+        webcamTexture.Play();
+
+        StartCoroutine(InitializeTextures());
+        ConnectToServer();
+        currentLandmarks = new LandmarkList();
     }
-    // ⭐️⭐️⭐️ ---------------------------------- ⭐️⭐️⭐️
 
-    // 3. (นี่คือบรรทัดที่ 99 ของคุณ)
-    // โค้ดนี้จะปลอดภัยแล้ว เพราะมันจะทำงานก็ต่อเมื่อ devices.Length > 0
-    webcamTexture = new WebCamTexture(devices[0].name, 640, 480, 30); 
-    
-    // ... (โค้ดที่เหลือใน Start() เช่น processedTexture, webcamTexture.Play()) ...
-    processedTexture = new Texture2D(2, 2); 
-    webcamTexture.Play();
-    
-    StartCoroutine(InitializeTextures());
-    ConnectToServer();
-    currentLandmarks = new LandmarkList();
-}
+    // ... (โค้ดส่วนที่เหลือของไฟล์) ...
 
-// ... (โค้ดส่วนที่เหลือของไฟล์) ...
-    
     System.Collections.IEnumerator InitializeTextures()
     {
-        yield return new WaitUntil(() => webcamTexture.width >= 640); 
-        frame = new Texture2D(webcamTexture.width, webcamTexture.height); 
-        isReady = true; 
+        yield return new WaitUntil(() => webcamTexture.width >= 640);
+        frame = new Texture2D(webcamTexture.width, webcamTexture.height);
+        isReady = true;
         Debug.Log("Webcam พร้อมแล้ว!");
     }
 
     void ConnectToServer()
     {
-        try {
+        try
+        {
             client = new TcpClient(serverAddress, serverPort);
             stream = client.GetStream();
             writer = new BinaryWriter(stream);
             reader = new BinaryReader(stream);
-        } catch (Exception e) { Debug.LogError($"เชื่อมต่อล้มเหลว: {e.Message}"); }
+        }
+        catch (Exception e) { Debug.LogError($"เชื่อมต่อล้มเหลว: {e.Message}"); }
     }
-    
+
     void Update()
     {
-        if (!isReady || writer == null || reader == null || !webcamTexture.isPlaying || !webcamTexture.didUpdateThisFrame) {
+        if (!isReady || writer == null || reader == null || !webcamTexture.isPlaying || !webcamTexture.didUpdateThisFrame)
+        {
             return;
         }
-        try {
+        try
+        {
             // (รับ/ส่งข้อมูล - ย่อไว้)
             frame.SetPixels(webcamTexture.GetPixels()); frame.Apply();
             byte[] bytes = frame.EncodeToJPG();
@@ -142,12 +159,14 @@ void Start()
             string jsonString = System.Text.Encoding.UTF8.GetString(jData);
             if (jsonString.Length > 0) { currentLandmarks = JsonUtility.FromJson<LandmarkList>(jsonString); }
 
-            UpdatePointVisuals(); 
+            UpdatePointVisuals();
             UpdateBoneVisuals();
-            
-        } catch (Exception ex) {
+
+        }
+        catch (Exception ex)
+        {
             Debug.LogWarning($"การเชื่อมต่อหลุด: {ex.Message}");
-            Disconnect(); 
+            Disconnect();
         }
     }
 
@@ -160,10 +179,11 @@ void Start()
         LandmarkData leftHip = currentLandmarks.landmarks.Find(lm => lm.id == LEFT_HIP_ID);
         LandmarkData rightHip = currentLandmarks.landmarks.Find(lm => lm.id == RIGHT_HIP_ID);
 
-        Vector3 hipCenter = new Vector3(0.5f, 0.5f, 0f); 
+        Vector3 hipCenter = new Vector3(0.5f, 0.5f, 0f);
         bool hipsFound = false;
 
-        if (leftHip != null && rightHip != null) {
+        if (leftHip != null && rightHip != null)
+        {
             hipCenter = new Vector3((leftHip.x + rightHip.x) / 2f, (leftHip.y + rightHip.y) / 2f, 0f);
             hipsFound = true;
         }
@@ -171,36 +191,39 @@ void Start()
         // --- 2. (Component A) คำนวณ "ตำแหน่งของตัวละคร" (Movement Offset) ---
         Vector3 hipRawPos = new Vector3(
             0.5f - hipCenter.x,  // (คำนวณเฉพาะ X)
-            0f, 
+            0f,
             0f
-        ); 
+        );
         Vector3 skeletonMovementOffset = Vector3.Scale(hipRawPos, actualGameSize);
 
         // --- 3. ขยับ "ข้อต่อ" (Joints) ภายในตัวละคร ---
         foreach (LandmarkData lm in currentLandmarks.landmarks)
         {
-            if (!points.ContainsKey(lm.id)) {
+            if (!points.ContainsKey(lm.id))
+            {
                 GameObject prefabToUse;
                 if (lm.id == NOSE_ID) { prefabToUse = nosePrefab; }
-                else if (lm.id == LEFT_HAND_ID || lm.id == RIGHT_HAND_ID) {
-                    prefabToUse = (handPrefab != null) ? handPrefab : pointPrefab; 
+                else if (lm.id == LEFT_HAND_ID || lm.id == RIGHT_HAND_ID)
+                {
+                    prefabToUse = (handPrefab != null) ? handPrefab : pointPrefab;
                 }
                 else { prefabToUse = pointPrefab; }
-                
-                GameObject newPoint = Instantiate(prefabToUse, startingPointOrigin); 
+
+                GameObject newPoint = Instantiate(prefabToUse, startingPointOrigin);
                 points[lm.id] = newPoint;
             }
 
             // --- 4. (Component B) คำนวณ "ตำแหน่งข้อต่อ" (Animation) ---
             Vector3 relativePos = new Vector3(
-                hipCenter.x - lm.x, 
-                hipCenter.y - lm.y, 
+                hipCenter.x - lm.x,
+                hipCenter.y - lm.y,
                 0f
             );
-            if (!hipsFound) {
-                 relativePos = new Vector3(0.5f - lm.x, 0.5f - lm.y, 0f);
+            if (!hipsFound)
+            {
+                relativePos = new Vector3(0.5f - lm.x, 0.5f - lm.y, 0f);
             }
-            Vector3 scaledBodyPos = Vector3.Scale(relativePos, bodyScale); 
+            Vector3 scaledBodyPos = Vector3.Scale(relativePos, bodyScale);
 
             // --- 5. (A + B) รวมการขยับและการเคลื่อนไหว ---
             Vector3 finalLocalPos = new Vector3(
@@ -208,7 +231,7 @@ void Start()
                 scaledBodyPos.y,                           // Y = (Animation only)
                 0f
             );
-            
+
             points[lm.id].transform.localPosition = finalLocalPos;
         }
     }
@@ -216,19 +239,23 @@ void Start()
     // --- (ฟังก์ชันที่เหลือ - ต้องมีแค่ 1 ชุด) ---
     void UpdateBoneVisuals()
     {
-        if (points.Count == 0 || bonePrefab == null) return; 
-        if (bones.Count == 0) {
-            foreach (var (id1, id2) in boneConnections) {
-                if (points.ContainsKey(id1) && points.ContainsKey(id2)) {
-                    GameObject newBone = Instantiate(bonePrefab, startingPointOrigin); 
+        if (points.Count == 0 || bonePrefab == null) return;
+        if (bones.Count == 0)
+        {
+            foreach (var (id1, id2) in boneConnections)
+            {
+                if (points.ContainsKey(id1) && points.ContainsKey(id2))
+                {
+                    GameObject newBone = Instantiate(bonePrefab, startingPointOrigin);
                     bones.Add(new BoneLink { boneObject = newBone, id1 = id1, id2 = id2 });
                 }
             }
         }
-        foreach (var bone in bones) {
+        foreach (var bone in bones)
+        {
             GameObject p1_obj = points[bone.id1];
             GameObject p2_obj = points[bone.id2];
-            Vector3 p1 = p1_obj.transform.position; 
+            Vector3 p1 = p1_obj.transform.position;
             Vector3 p2 = p2_obj.transform.position;
             Vector3 midpoint = (p1 + p2) / 2f;
             bone.boneObject.transform.position = midpoint;
@@ -238,22 +265,22 @@ void Start()
             bone.boneObject.transform.localScale = new Vector3(boneWidth, length * 0.5f, boneWidth);
         }
     }
-    
+
     public void Disconnect()
     {
-        if (client == null) return; 
+        if (client == null) return;
         writer?.Close();
         reader?.Close();
         stream?.Close();
         client?.Close();
         writer = null; reader = null; stream = null; client = null;
     }
-    
-    void OnApplicationQuit() 
-    { 
-        Disconnect(); 
+
+    void OnApplicationQuit()
+    {
+        Disconnect();
     }
-    
+
     void OnDestroy()
     {
         Disconnect();

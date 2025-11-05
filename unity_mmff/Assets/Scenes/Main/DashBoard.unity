@@ -4506,11 +4506,11 @@ RectTransform:
   - {fileID: 90246981}
   m_Father: {fileID: 1567812446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 629, y: -317.26624}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &612031149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8236,6 +8236,13 @@ MonoBehaviour:
   dashboardController: {fileID: 1163704280}
   dialogueadvisor: {fileID: 1409134427}
   typingSpeed: 0.03
+  enableTypewriterEffect: 1
+  charactersPerFrame: 2
+  useAutoSize: 1
+  minFontSize: 36
+  maxFontSize: 72
+  loadingText: "\u0E01\u0E33\u0E25\u0E31\u0E07\u0E27\u0E34\u0E40\u0E04\u0E23\u0E32\u0E30\u0E2B\u0E4C\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25..."
+  maxWaitTime: 2
   recommendedGames:
   - Jump & Climb Challenge
   - Running Adventure
@@ -8658,11 +8665,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 612031148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2, y: -0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1435867449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8690,7 +8697,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -8897,11 +8904,11 @@ RectTransform:
   - {fileID: 1249073902}
   m_Father: {fileID: 1567812446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 629, y: -317.26624}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -629, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1486105791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11223,11 +11230,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1486105790}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2, y: -0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -2, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2036408315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11255,7 +11262,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1

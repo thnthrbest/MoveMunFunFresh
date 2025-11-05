@@ -18,6 +18,7 @@ public class UDPReceive : MonoBehaviour
     public TextMeshProUGUI same;
     Color color;
     public string[] a;
+    public bool aws = false;
 
     public void Start()
     {
@@ -56,6 +57,7 @@ public class UDPReceive : MonoBehaviour
                 a = (data).Split(' ');
                 if (((float.Parse(a[1])) * 100) >= 70){
                     if (ColorUtility.TryParseHtmlString("#00FF00", out color)) same.color = color;
+                    aws = true;
                 }
                 else if (((float.Parse(a[1])) * 100) < 70){
                     if (ColorUtility.TryParseHtmlString("#FFD300", out color))same.color = color;

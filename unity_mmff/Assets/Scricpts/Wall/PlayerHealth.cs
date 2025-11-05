@@ -40,7 +40,6 @@ public class PlayerHealth : MonoBehaviour
         {
             PlayerPrefs.SetString("game_id", "2");
             SceneManager.LoadScene("Endgame");
-            Die();
         }
     }
 
@@ -54,12 +53,11 @@ public class PlayerHealth : MonoBehaviour
             heartImages[currentHealth].SetActive(false);
         }
     }
-
-    void Die()
+    public void EndRound()
     {
-        // ใส่โค้ดว่าเมื่อตายแล้วจะให้ทำอะไร
-        // เช่น เริ่มเกมใหม่ หรือทำลายตัวละคร
-        Debug.Log("Player Died!");
-        // Destroy(gameObject); // <--- ถ้าต้องการให้ตัวละครหายไป
+        heartImages[0].SetActive(false);
+        heartImages[1].SetActive(false);
+        heartImages[2].SetActive(false);
+        TakeDamage(3);
     }
 }

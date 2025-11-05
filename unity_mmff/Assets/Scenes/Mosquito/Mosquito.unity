@@ -734,7 +734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimeCounter
   countdownText: {fileID: 1586466198}
   startSound: {fileID: 8300000, guid: 24996b8d52fc7264b962e218e0f854f6, type: 3}
-  loopSound: {fileID: 0}
+  loopSound: {fileID: 8300000, guid: 4866377c771b79044a22a9971dae3fb9, type: 3}
   scriptToEnable: {fileID: 192893271}
   cam: {fileID: 561833852}
   sev: {fileID: 1564393666}

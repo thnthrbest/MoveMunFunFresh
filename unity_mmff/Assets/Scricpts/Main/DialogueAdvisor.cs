@@ -282,6 +282,10 @@ public class DialogueAdvisor : MonoBehaviour
         {
             return "ไม่พบข้อมูล กรุณาลองใหม่อีกครั้ง";
         }
+        else if (minScore == 0 && lowestIndices.Count == 5)
+        {
+            return "ดูเหมือนว่าวันนี้น้องๆยังไม่ได้ลองเล่นเกมเลยนะ งั้นวันนี้เรามาเริ่มต้นเล่นเกมเพื่อกิจกรรมทางกายกันเถอะ ถ้าแนะนำอยากให้น้องๆเริ่มต้นด้วยการเล่นกำแพงหรรษหรือไม่ก็เกมตบยุงก่อนนะ";
+        }
 
         string opening = openingMessages[Random.Range(0, openingMessages.Length)];
         string closing = closingMessages[Random.Range(0, closingMessages.Length)];
@@ -295,7 +299,7 @@ public class DialogueAdvisor : MonoBehaviour
         }
 
         // กรณีมีหลายส่วนที่คะแนนต่ำสุดเท่ากัน
-        if (lowestIndices.Count > 1)
+        else if (lowestIndices.Count > 1)
         {
             mainContent = multipleWeaknessMessages[Random.Range(0, multipleWeaknessMessages.Length)];
             

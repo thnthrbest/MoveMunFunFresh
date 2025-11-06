@@ -1501,7 +1501,7 @@ MonoBehaviour:
   CanStart: 1
   ScriptFolder: D:/MoveMunFunFresh/python_handmade/sever/
   ScriptName: start_main_bat
-  delayForStartServer: 3
+  delayForStartServer: 5
   dec: {fileID: 987308846}
   CountdownTimer: {fileID: 987308848}
   sendstate: {fileID: 987308842}
